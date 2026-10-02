@@ -1,0 +1,159 @@
+{
+  "run_id": "2026-10-02",
+  "schema_version": 1,
+  "created_at": "2026-10-02T11:31:49.262444+00:00",
+  "config_snapshot": {
+    "voice": "af_heart",
+    "aspect": "1920x1080",
+    "target_len_s": 90
+  },
+  "topic": {
+    "title": "The Largest Living Thing Is a Single Fungus",
+    "source": "google-trends-rss",
+    "rank_score": 0.8,
+    "provider": "template-fallback"
+  },
+  "script": {
+    "full_text": "In a quiet forest in Oregon, trees were dying in slow, spreading rings, and no one knew why. When scientists dug beneath the soil to investigate, they uncovered the largest living organism on Earth. It was a single honey fungus, hidden almost entirely underground. A vast web of pale threads laced through the soil, all part of one connected organism spreading silently between the roots of the trees. This one fungus sprawls across nearly ten square kilometers, weighs as much as thousands of cars, and may be over two thousand years old. Almost all of it stays invisible, deep beneath the forest floor. We picture giants as whales or towering trees. But the true colossus of the living world is a quiet, patient fungus, hiding under a forest that has no idea it is standing on a single vast creature.",
+    "word_count": 140,
+    "provider": "template-seed"
+  },
+  "shots": [
+    {
+      "idx": 0,
+      "narration": "In a quiet forest in Oregon, trees were dying in slow, spreading rings, and no one knew why. When scientists dug beneath the soil to investigate, they uncovered the largest living organism on Earth.",
+      "image_prompt": "dense oregon pine forest with patches of dying trees seen from above, misty, muted green, eerie, cinematic aerial",
+      "duration_s": 7.0,
+      "motion": "zoom_in",
+      "caption": "Trees dying in rings",
+      "image_path": "assets/shot_000.png",
+      "clip_path": null,
+      "audio_start_s": null,
+      "audio_end_s": null
+    },
+    {
+      "idx": 1,
+      "narration": "It was a single honey fungus, hidden almost entirely underground. A vast web of pale threads laced through the soil, all part of one connected organism spreading silently between the roots of the trees.",
+      "image_prompt": "macro of pale white fungal threads threading through dark forest soil and tree roots, intricate, glistening, cinematic detail",
+      "duration_s": 6.5,
+      "motion": "pan_left",
+      "caption": "One hidden organism",
+      "image_path": null,
+      "clip_path": null,
+      "audio_start_s": null,
+      "audio_end_s": null
+    },
+    {
+      "idx": 2,
+      "narration": "This one fungus sprawls across nearly ten square kilometers, weighs as much as thousands of cars, and may be over two thousand years old. Almost all of it stays invisible, deep beneath the forest floor.",
+      "image_prompt": "clusters of golden honey mushrooms growing at the base of a mossy tree trunk in dim forest light, richly detailed, cinematic",
+      "duration_s": 7.0,
+      "motion": "zoom_in",
+      "caption": "Bigger than a city",
+      "image_path": null,
+      "clip_path": null,
+      "audio_start_s": null,
+      "audio_end_s": null
+    },
+    {
+      "idx": 3,
+      "narration": "We picture giants as whales or towering trees. But the true colossus of the living world is a quiet, patient fungus, hiding under a forest that has no idea it is standing on a single vast creature.",
+      "image_prompt": "sunlight breaking through a tall silent forest canopy onto the shadowed floor below, atmospheric, expansive, cinematic",
+      "duration_s": 6.5,
+      "motion": "zoom_out",
+      "caption": "The true giant",
+      "image_path": null,
+      "clip_path": null,
+      "audio_start_s": null,
+      "audio_end_s": null
+    }
+  ],
+  "audio": null,
+  "assets": null,
+  "video": null,
+  "thumbnail": null,
+  "upload": null,
+  "stages": [
+    {
+      "name": "topic",
+      "status": "completed",
+      "provider_used": "template-fallback",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-02T11:31:49.262848+00:00",
+      "ended_at": "2026-10-02T11:32:09.727739+00:00"
+    },
+    {
+      "name": "script",
+      "status": "completed",
+      "provider_used": "template-seed",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-02T11:32:09.728390+00:00",
+      "ended_at": "2026-10-02T11:32:10.961227+00:00"
+    },
+    {
+      "name": "direction",
+      "status": "completed",
+      "provider_used": "template-seed",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-02T11:32:10.961831+00:00",
+      "ended_at": "2026-10-02T11:32:12.176055+00:00"
+    },
+    {
+      "name": "images",
+      "status": "failed",
+      "provider_used": null,
+      "attempts": 1,
+      "error": "AllProvidersFailed: all providers failed -> pollinations-flux: HTTPStatusError: Client error '402 Payment Required' for url 'https://image.pollinations.ai/prompt/macro%20of%20pale%20white%20fungal%20threads%20threading%20through%20dark%20forest%20soil%20and%20tree%20roots%2C%20intricate%2C%20glistening%2C%20cinematic%20detail?width=1920&height=1080&nologo=true&model=flux&seed=1001'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402",
+      "started_at": "2026-10-02T11:32:12.176706+00:00",
+      "ended_at": "2026-10-02T11:32:18.882011+00:00"
+    },
+    {
+      "name": "tts",
+      "status": "pending",
+      "provider_used": null,
+      "attempts": 0,
+      "error": null,
+      "started_at": null,
+      "ended_at": null
+    },
+    {
+      "name": "assets",
+      "status": "pending",
+      "provider_used": null,
+      "attempts": 0,
+      "error": null,
+      "started_at": null,
+      "ended_at": null
+    },
+    {
+      "name": "video",
+      "status": "pending",
+      "provider_used": null,
+      "attempts": 0,
+      "error": null,
+      "started_at": null,
+      "ended_at": null
+    },
+    {
+      "name": "thumbnail",
+      "status": "pending",
+      "provider_used": null,
+      "attempts": 0,
+      "error": null,
+      "started_at": null,
+      "ended_at": null
+    },
+    {
+      "name": "upload",
+      "status": "pending",
+      "provider_used": null,
+      "attempts": 0,
+      "error": null,
+      "started_at": null,
+      "ended_at": null
+    }
+  ]
+}
