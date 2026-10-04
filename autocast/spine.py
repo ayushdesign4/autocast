@@ -104,20 +104,70 @@ class Script(_Model):
     provider: str | None = None
 
 
+class Character(_Model):
+    name: str
+    age: str = ""
+    gender: str = ""
+    height: str = ""
+    body_type: str = ""
+    skin_tone: str = ""
+    face_shape: str = ""
+    eyes: str = ""
+    hair: str = ""
+    hairstyle: str = ""
+    clothing: str = ""
+    footwear: str = ""
+    accessories: str = ""
+    unique_facial_features: str = ""
+    personality: str = ""
+    typical_expressions: str = ""
+    body_language: str = ""
+
+
+class CharacterBible(_Model):
+    characters: list[Character] = Field(default_factory=list)
+
+
+class Scene(_Model):
+    scene_number: int
+    title_hindi: str = ""
+    characters_hindi: str = ""
+    location_hindi: str = ""
+    action_hindi: str = ""
+    dialogue_hindi: str = ""
+    video_prompt: str = ""
+    duration_s: float = Field(gt=0, le=10.0)
+    clip_path: str | None = None
+    frame_path: str | None = None
+    has_native_audio: bool = True
+    status: str = "pending"  # pending | completed | failed
+
+
 class Shot(_Model):
-    """One beat of the shot list. len(shots) === #images === #Ken Burns clips."""
+    """One beat of the scene/shot list. Maps to an AI video clip (and preview frame)."""
 
     idx: int
-    narration: str
-    image_prompt: str
+    narration: str = ""
+    image_prompt: str = ""
     duration_s: float = Field(gt=0)
     motion: str = "zoom_in"  # zoom_in | zoom_out | pan_left | pan_right
     caption: str = ""
     # Filled in by later stages (relative paths, never blobs):
-    image_path: str | None = None  # written by images stage
-    clip_path: str | None = None  # written by video stage
-    audio_start_s: float | None = None  # written by tts/align stage
+    image_path: str | None = None  # written by images/video_gen stage (preview frame)
+    clip_path: str | None = None  # written by video_gen stage (scene MP4)
+    audio_start_s: float | None = None
     audio_end_s: float | None = None
+
+    # 1990s nostalgic scene breakdown fields:
+    scene_number: int | None = None
+    title_hindi: str | None = None
+    characters_hindi: str | None = None
+    location_hindi: str | None = None
+    action_hindi: str | None = None
+    dialogue_hindi: str | None = None
+    video_prompt: str | None = None
+    has_native_audio: bool = True
+    status: str = "pending"
 
 
 class Audio(_Model):
@@ -183,6 +233,8 @@ class Run(_Model):
     # Per-stage sections (None until the stage fills them):
     topic: Topic | None = None
     script: Script | None = None
+    character_bible: CharacterBible | None = None
+    scenes: list[Scene] = Field(default_factory=list)
     shots: list[Shot] = Field(default_factory=list)
     audio: Audio | None = None
     assets: Assets | None = None

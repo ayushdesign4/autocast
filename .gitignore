@@ -29,3 +29,7 @@ runs/*/assets/words.json
 runs/*/assets/captions.ass
 # keep thumbnails (tiny, the UI wants them):
 !runs/*/assets/thumb.jpg
+
+# Temporary smoke test output directories
+runs/agnes_smoke_test/
+runs/live_scene_test/

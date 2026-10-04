@@ -45,6 +45,7 @@ jobs:
           echo "rendering run_id=$RUN_ID"
           uv run python -m autocast.orchestrator --run-id "$RUN_ID"
         env:
+          AGNES_API_KEY:        ${{ secrets.AGNES_API_KEY }}
           GEMINI_API_KEY:       ${{ secrets.GEMINI_API_KEY }}
           GROQ_API_KEY:         ${{ secrets.GROQ_API_KEY }}
           CEREBRAS_API_KEY:     ${{ secrets.CEREBRAS_API_KEY }}

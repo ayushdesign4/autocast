@@ -12,6 +12,7 @@ import functools
 import logging
 import re
 import subprocess
+import shutil
 from pathlib import Path
 
 log = logging.getLogger("autocast.ffmpeg")
@@ -21,20 +22,52 @@ class FFmpegError(RuntimeError):
     """FFmpeg exited non-zero. Carries the tail of stderr so failures are legible."""
 
 
+def _resolve_bin(name: str) -> str:
+    """Resolve executable path from PATH or fallback to bundled imageio-ffmpeg."""
+    found = shutil.which(name)
+    if found:
+        return found
+    try:
+        import imageio_ffmpeg
+
+        if "ffmpeg" in name or "ffprobe" in name:
+            return imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception:  # noqa: BLE001
+        pass
+    return name
+
+
 def run_ffmpeg(cmd: list[str]) -> None:
     """Run an ffmpeg/ffprobe argv list. Raise FFmpegError with stderr on failure."""
-    log.info("ffmpeg: %s", " ".join(cmd))
-    proc = subprocess.run(cmd, capture_output=True, text=True)
+    resolved_cmd = list(cmd)
+    if resolved_cmd:
+        resolved_cmd[0] = _resolve_bin(resolved_cmd[0])
+    log.info("ffmpeg: %s", " ".join(resolved_cmd))
+    proc = subprocess.run(resolved_cmd, capture_output=True, text=True)
     if proc.returncode != 0:
         tail = "\n".join(proc.stderr.strip().splitlines()[-12:])
-        raise FFmpegError(f"{cmd[0]} exited {proc.returncode}:\n{tail}")
+        raise FFmpegError(f"{resolved_cmd[0]} exited {proc.returncode}:\n{tail}")
 
 
 def probe_duration(path: str | Path) -> float:
-    """Return media duration in seconds via ffprobe (0.0 if unknown/empty)."""
+    """Return media duration in seconds via ffprobe/ffmpeg (0.0 if unknown/empty)."""
+    bin_name = _resolve_bin("ffprobe")
+    # If using ffmpeg binary directly to probe duration
+    if "ffmpeg" in bin_name and "ffprobe" not in bin_name:
+        proc = subprocess.run(
+            [bin_name, "-i", str(path)],
+            capture_output=True,
+            text=True,
+        )
+        match = re.search(r"Duration:\s*(\d+):(\d+):(\d+\.\d+)", proc.stderr)
+        if match:
+            h, m, s = match.groups()
+            return int(h) * 3600 + int(m) * 60 + float(s)
+        return 0.0
+
     proc = subprocess.run(
         [
-            "ffprobe",
+            bin_name,
             "-v",
             "error",
             "-show_entries",

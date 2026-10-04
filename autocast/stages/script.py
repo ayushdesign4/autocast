@@ -26,13 +26,15 @@ _MAX_WORDS = 320
 
 def _script_prompt(title: str, target_len_s: int) -> str:
     return (
-        f"Write a {target_len_s}-second YouTube narration script about: {title}\n\n"
-        "Rules:\n"
-        "- Return ONLY the spoken narration — no headings, no stage directions, no "
-        "'[music]' cues, no markdown, no speaker labels.\n"
-        "- Hook the viewer in the first sentence.\n"
-        "- Conversational, vivid, faceless-documentary tone.\n"
-        f"- About {max(1, target_len_s // 4)} short paragraphs; end with a memorable line.\n"
+        f"Write a heartwarming, emotional, and family-friendly 1990s Indian nostalgic childhood story in Hindi based on the title: {title}\n\n"
+        "Story Requirements:\n"
+        "- Era & Setting: 1990s rural or small-town India (e.g. Nani/Dadi's courtyard, mango orchard, rooftop with charpai, village fair, monsoon rain, Doordarshan Sunday, cassette player, power cuts).\n"
+        "- Language: Rich, emotional, evocative HINDI (Devanagari script).\n"
+        "- Themes: Natural everyday childhood memories, innocence, sibling bonding, grandmother's love, simple joys.\n"
+        "- STRICTLY FORBIDDEN: No modern smartphones, social media, computers, or futuristic tech.\n"
+        "- Characters: Include 2-3 memorable recurring characters with natural Hindi dialogues.\n"
+        "- Pacing: A complete story arc (beginning, nostalgic adventure/moment, emotional conclusion) suitable for a 1-2 minute video (~120-250 words).\n"
+        "- Return ONLY the Hindi narrative story text without markdown formatting, headings, or stage directions.\n"
     )
 
 

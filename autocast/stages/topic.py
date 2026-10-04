@@ -84,11 +84,13 @@ def _select_candidates(cfg: Config, run_id: str, dry_run: bool) -> tuple[list[st
 
 def _craft_prompt(candidates: list[str]) -> str:
     return (
-        "You curate a faceless YouTube channel of short cinematic documentaries about "
-        "history, science, and mystery.\n"
-        "From the trending signals and evergreen ideas below, produce ONE compelling, "
-        "specific video title with strong curiosity appeal.\n"
-        "Return ONLY the title text — no quotes, no numbering, no explanation, max 70 chars.\n\n"
+        "You curate a YouTube channel of emotional, family-friendly short animated stories "
+        "celebrating 1990s Indian nostalgia and everyday childhood memories (such as Nani/Dadi house, "
+        "summer vacations, village childhood, mangoes, Doordarshan, cassette player, monsoon paper boats, "
+        "power cuts, rooftop sleeping on charpai, kite flying, railway journey, village fair).\n"
+        "From the trending signals and ideas below, produce ONE compelling, nostalgic story title "
+        "(in Hindi or Hindi-English, max 70 chars).\n"
+        "Return ONLY the title text — no quotes, no numbering, no explanation.\n\n"
         "Signals:\n" + "\n".join(f"- {c}" for c in candidates)
     )
 

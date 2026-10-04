@@ -82,3 +82,65 @@ def build_mux_cmd(
 
     cmd += ["-c:a", "aac", "-b:a", "192k", "-shortest", out_path]
     return cmd
+
+
+def build_normalize_clip_cmd(
+    *,
+    in_path: str,
+    out_path: str,
+    width: int = 1920,
+    height: int = 1080,
+    fps: int = 30,
+) -> list[str]:
+    """Normalize a generated scene video clip to a standard stream format.
+
+    Ensures 16:9, exact fps, yuv420p, and stereo 48k aac audio so concatenation is seamless.
+    """
+    return [
+        "ffmpeg",
+        "-y",
+        "-i", in_path,
+        "-vf", f"scale={width}:{height}:force_original_aspect_ratio=decrease,pad={width}:{height}:(ow-iw)/2:(oh-ih)/2,setsar=1",
+        "-r", str(fps),
+        "-c:v", "libx264",
+        "-pix_fmt", "yuv420p",
+        "-c:a", "aac",
+        "-ar", "48000",
+        "-ac", "2",
+        out_path,
+    ]
+
+
+def build_scored_native_mux_cmd(
+    *,
+    reel_path: str,
+    out_path: str,
+    music_path: str | None = None,
+    music_gain_db: float = -22.0,
+) -> list[str]:
+    """Combine the concatenated video reel (with its native dialogue/sound) with background music.
+
+    Ducks the ambient background music under the native scene audio.
+    """
+    if not music_path:
+        return [
+            "ffmpeg", "-y", "-i", reel_path,
+            "-c:v", "copy", "-c:a", "copy",
+            out_path,
+        ]
+
+    return [
+        "ffmpeg",
+        "-y",
+        "-i", reel_path,
+        "-i", music_path,
+        "-filter_complex",
+        f"[1:a]volume={music_gain_db}dB[bg];[0:a][bg]amix=inputs=2:duration=first:dropout_transition=2[aout]",
+        "-map", "0:v",
+        "-map", "[aout]",
+        "-c:v", "copy",
+        "-c:a", "aac",
+        "-b:a", "192k",
+        "-shortest",
+        out_path,
+    ]

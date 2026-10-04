@@ -39,8 +39,15 @@ class Config(BaseSettings):
     fps: int = 30
     target_len_s: int = 90
 
-    # ---- LLM providers (cascade order: gemini -> groq -> cloudflare -> cerebras)
+    # ---- LLM & Video providers (Agnes primary, Gemini Veo fallback) ----
+    agnes_api_key: str | None = Field(default=None)
+    agnes_model: str = "agnes-video-v2.0"
+    agnes_api_base: str = "https://apihub.agnes-ai.com"
+    agnes_rate_limit_seconds: float = 60.0
+    video_provider: str = "agnes"
+
     gemini_api_key: str | None = Field(default=None)
+    veo_model: str = "veo-3.1-generate-preview"
     groq_api_key: str | None = Field(default=None)
     cerebras_api_key: str | None = Field(default=None)
 
