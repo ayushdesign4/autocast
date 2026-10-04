@@ -69,6 +69,13 @@ class Config(BaseSettings):
     yt_client_secret: str | None = Field(default=None)
     yt_refresh_token: str | None = Field(default=None)
 
+    # ---- Optional Post-Upload Email Notifications (standard library SMTP) ----
+    notification_email: str | None = Field(default=None)
+    smtp_host: str | None = Field(default=None)
+    smtp_port: int = 587
+    smtp_username: str | None = Field(default=None)
+    smtp_password: str | None = Field(default=None)
+
     # ---- safety: Cloudflare overage budget kill-switch (USD cents). 0 = never
     #      allow paid Cloudflare fallback. Raise deliberately once a budget is set.
     cloudflare_budget_cents: int = 0

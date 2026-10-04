@@ -37,6 +37,7 @@ dev = [
 
 [project.scripts]
 autocast = "autocast.orchestrator:main"
+autocast-auth = "autocast.util.youtube_auth:main"
 
 [build-system]
 requires = ["hatchling"]
