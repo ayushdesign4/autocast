@@ -170,6 +170,7 @@ def _cfg(**overrides) -> Config:
     shell env can't leak a key into these ordering assertions)."""
     base = dict(
         gemini_api_key=None,
+        agnes_api_key=None,
         groq_api_key=None,
         cerebras_api_key=None,
         cloudflare_api_token=None,
@@ -198,9 +199,14 @@ def test_llm_providers_prepends_gemini_when_keyed():
     assert names[0] == "gemini" and names[-1] == "pollinations-openai"
 
 
+def test_llm_providers_includes_agnes_when_keyed():
+    names = _names(_cfg(agnes_api_key="a"))
+    assert names == ["agnes", "pollinations-openai"]
+
+
 def test_llm_providers_documented_order():
-    names = _names(_cfg(gemini_api_key="a", groq_api_key="b", cerebras_api_key="c"))
-    assert names == ["gemini", "groq", "cerebras", "pollinations-openai"]
+    names = _names(_cfg(gemini_api_key="a", agnes_api_key="x", groq_api_key="b", cerebras_api_key="c"))
+    assert names == ["gemini", "agnes", "groq", "cerebras", "pollinations-openai"]
 
 
 def test_llm_providers_excludes_cerebras_for_direction():

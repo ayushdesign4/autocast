@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from pydantic import Field
+from pydantic import AliasChoices, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Repo-relative default output roots. `runs/` is committed back by the Action.
@@ -39,17 +39,42 @@ class Config(BaseSettings):
     fps: int = 30
     target_len_s: int = 90
 
-    # ---- LLM & Video providers (Agnes primary, Gemini Veo fallback) ----
+    # ---- LLM & Video providers (Agnes primary video/companion LLM, Gemini primary LLM/Veo fallback) ----
     agnes_api_key: str | None = Field(default=None)
     agnes_model: str = "agnes-video-v2.0"
     agnes_api_base: str = "https://apihub.agnes-ai.com"
     agnes_rate_limit_seconds: float = 60.0
     video_provider: str = "agnes"
 
-    gemini_api_key: str | None = Field(default=None)
+    gemini_api_key: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices(
+            "GEMINI_API_KEY",
+            "GOOGLE_API_KEY",
+            "gemini_api_key",
+            "google_api_key",
+        ),
+    )
+    gemini_model: str = "gemini-3.8-flash"
     veo_model: str = "veo-3.1-generate-preview"
     groq_api_key: str | None = Field(default=None)
     cerebras_api_key: str | None = Field(default=None)
+
+    @field_validator(
+        "agnes_api_key",
+        "gemini_api_key",
+        "groq_api_key",
+        "cerebras_api_key",
+        "cloudflare_api_token",
+        "cloudflare_account_id",
+        mode="before",
+    )
+    @classmethod
+    def _clean_empty_secrets(cls, v: str | None) -> str | None:
+        if isinstance(v, str):
+            cleaned = v.strip()
+            return cleaned if cleaned else None
+        return v
 
     # ---- Cloudflare Workers AI (LLM + image fallback). Bills on overage:
     #      cascade.py must guard it behind the budget kill-switch.
