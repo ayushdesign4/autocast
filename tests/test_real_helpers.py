@@ -209,6 +209,16 @@ def test_llm_providers_documented_order():
     assert names == ["gemini", "agnes", "groq", "cerebras", "pollinations-openai"]
 
 
+def test_llm_providers_groq_fallback_after_gemini_and_agnes():
+    names = _names(_cfg(gemini_api_key="a", agnes_api_key="x", groq_api_key="g"))
+    assert names == ["gemini", "agnes", "groq", "pollinations-openai"]
+
+
+def test_llm_providers_groq_when_primary_keys_missing():
+    names = _names(_cfg(groq_api_key="g"))
+    assert names == ["groq", "pollinations-openai"]
+
+
 def test_llm_providers_excludes_cerebras_for_direction():
     # direction passes allow_cerebras=False (8k context can't hold the shot list).
     assert "cerebras" not in _names(_cfg(cerebras_api_key="c"), allow_cerebras=False)

@@ -57,8 +57,24 @@ class Config(BaseSettings):
     )
     gemini_model: str = "gemini-3.8-flash"
     veo_model: str = "veo-3.1-generate-preview"
-    groq_api_key: str | None = Field(default=None)
-    cerebras_api_key: str | None = Field(default=None)
+    groq_api_key: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices(
+            "GROQ_API_KEY",
+            "GROQ_KEY",
+            "groq_api_key",
+            "groq_key",
+        ),
+    )
+    cerebras_api_key: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices(
+            "CEREBRAS_API_KEY",
+            "CEREBRAS_KEY",
+            "cerebras_api_key",
+            "cerebras_key",
+        ),
+    )
 
     @field_validator(
         "agnes_api_key",
