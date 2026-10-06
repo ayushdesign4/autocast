@@ -1,0 +1,380 @@
+{
+  "run_id": "2026-10-06",
+  "schema_version": 1,
+  "created_at": "2026-10-06T02:46:32.225710+00:00",
+  "config_snapshot": {
+    "voice": "af_heart",
+    "aspect": "1920x1080",
+    "target_len_s": 90
+  },
+  "topic": {
+    "title": "स्कूल का पहला दिन और तख्ती की लिखाई",
+    "source": "google-trends-rss",
+    "rank_score": 0.8,
+    "provider": "template-fallback"
+  },
+  "script": {
+    "full_text": "लकड़ी की तख्ती पर मुलतानी मिट्टी का वो गीला लेप लगाना। सरकंडे की कलम से सुलेख लिखने का वो पहला अभ्यास। हाथों में लगी स्याही और बस्ते में बंद नई किताबें। मास्टर जी की प्यार भरी नज़र और दोस्तों की हँसी। वो तख्ती की लिखाई आज भी यादों में ताज़ा है।",
+    "word_count": 51,
+    "provider": "template-seed"
+  },
+  "character_bible": {
+    "characters": [
+      {
+        "name": "Rohan",
+        "age": "9 years old",
+        "gender": "male",
+        "height": "4 feet 2 inches",
+        "body_type": "lean energetic child",
+        "skin_tone": "warm wheatish brown",
+        "face_shape": "round innocent face",
+        "eyes": "large expressive dark brown eyes",
+        "hair": "messy jet black hair",
+        "hairstyle": "short uncombed crop",
+        "clothing": "faded yellow cotton t-shirt and loose navy blue shorts",
+        "footwear": "dusty brown rubber flip-flops",
+        "accessories": "black thread on wrist",
+        "unique_facial_features": "bright mischievous grin",
+        "personality": "adventurous and curious",
+        "typical_expressions": "wide-eyed wonder",
+        "body_language": "bouncy energetic gait"
+      },
+      {
+        "name": "Dadi",
+        "age": "68 years old",
+        "gender": "female",
+        "height": "5 feet 0 inches",
+        "body_type": "gentle elderly grandmother",
+        "skin_tone": "warm dusky with laugh wrinkles",
+        "face_shape": "kind oval face",
+        "eyes": "warm honey-brown eyes",
+        "hair": "pure silvery white hair",
+        "hairstyle": "neat low traditional bun",
+        "clothing": "crisp white cotton saree with red border",
+        "footwear": "brown leather slippers",
+        "accessories": "silver bangles and red bindi",
+        "unique_facial_features": "soft crinkles around eyes",
+        "personality": "loving matriarch",
+        "typical_expressions": "maternal warmth",
+        "body_language": "gentle rhythmic hand gestures"
+      }
+    ]
+  },
+  "scenes": [
+    {
+      "scene_number": 1,
+      "title_hindi": "तख्ती का लेप",
+      "characters_hindi": "रोहन और दादी",
+      "location_hindi": "गाँव का घर",
+      "action_hindi": "लकड़ी की तख्ती पर मुलतानी मिट्टी का वो गीला लेप लगाना।",
+      "dialogue_hindi": "लकड़ी की तख्ती पर मुलतानी मिट्टी का वो गीला लेप लगाना।",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Wooden writing slate being coated with pale clay paste drying quickly in warm schoolyard sun. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.0,
+      "clip_path": "assets/scene_001.mp4",
+      "frame_path": "assets/scene_001.png",
+      "has_native_audio": true,
+      "status": "completed"
+    },
+    {
+      "scene_number": 2,
+      "title_hindi": "सरकंडे की कलम",
+      "characters_hindi": "रोहन और दादी",
+      "location_hindi": "गाँव का घर",
+      "action_hindi": "सरकंडे की कलम से सुलेख लिखने का वो पहला अभ्यास।",
+      "dialogue_hindi": "सरकंडे की कलम से सुलेख लिखने का वो पहला अभ्यास।",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Close-up of child's small hand dipping reed pen into black inkpot carefully writing Hindi vowel. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.5,
+      "clip_path": "assets/scene_002.mp4",
+      "frame_path": "assets/scene_002.png",
+      "has_native_audio": true,
+      "status": "completed"
+    },
+    {
+      "scene_number": 3,
+      "title_hindi": "स्याही भरे हाथ",
+      "characters_hindi": "रोहन और दादी",
+      "location_hindi": "गाँव का घर",
+      "action_hindi": "हाथों में लगी स्याही और बस्ते में बंद नई किताबें।",
+      "dialogue_hindi": "हाथों में लगी स्याही और बस्ते में बंद नई किताबें।",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Boy proudly inspecting blue ink stains on fingertips while holding canvas school bag on bench. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 7.0,
+      "clip_path": "assets/scene_003.mp4",
+      "frame_path": "assets/scene_003.png",
+      "has_native_audio": true,
+      "status": "completed"
+    },
+    {
+      "scene_number": 4,
+      "title_hindi": "मास्टर जी नज़र",
+      "characters_hindi": "रोहन और दादी",
+      "location_hindi": "गाँव का घर",
+      "action_hindi": "मास्टर जी की प्यार भरी नज़र और दोस्तों की हँसी।",
+      "dialogue_hindi": "मास्टर जी की प्यार भरी नज़र और दोस्तों की हँसी।",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Kind village school teacher with spectacles leaning over desk gently guiding student's hand with smile. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.0,
+      "clip_path": "assets/scene_004.mp4",
+      "frame_path": "assets/scene_004.png",
+      "has_native_audio": true,
+      "status": "completed"
+    },
+    {
+      "scene_number": 5,
+      "title_hindi": "तख्ती की याद",
+      "characters_hindi": "रोहन और दादी",
+      "location_hindi": "गाँव का घर",
+      "action_hindi": "वो तख्ती की लिखाई आज भी यादों में ताज़ा है।",
+      "dialogue_hindi": "वो तख्ती की लिखाई आज भी यादों में ताज़ा है।",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Empty wooden classroom after hours with slates stacked neatly beside blackboard in peaceful dust motes. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.5,
+      "clip_path": "assets/scene_005.mp4",
+      "frame_path": "assets/scene_005.png",
+      "has_native_audio": true,
+      "status": "completed"
+    }
+  ],
+  "shots": [
+    {
+      "idx": 0,
+      "narration": "लकड़ी की तख्ती पर मुलतानी मिट्टी का वो गीला लेप लगाना।",
+      "image_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Wooden writing slate being coated with pale clay paste drying quickly in warm schoolyard sun. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.0,
+      "motion": "zoom_in",
+      "caption": "तख्ती का लेप",
+      "image_path": "assets/scene_001.png",
+      "clip_path": "assets/scene_001.mp4",
+      "audio_start_s": 0.0,
+      "audio_end_s": 6.0,
+      "scene_number": 1,
+      "title_hindi": "तख्ती का लेप",
+      "characters_hindi": "रोहन और दादी",
+      "location_hindi": "गाँव का घर",
+      "action_hindi": "लकड़ी की तख्ती पर मुलतानी मिट्टी का वो गीला लेप लगाना।",
+      "dialogue_hindi": "लकड़ी की तख्ती पर मुलतानी मिट्टी का वो गीला लेप लगाना।",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Wooden writing slate being coated with pale clay paste drying quickly in warm schoolyard sun. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "has_native_audio": true,
+      "status": "completed"
+    },
+    {
+      "idx": 1,
+      "narration": "सरकंडे की कलम से सुलेख लिखने का वो पहला अभ्यास।",
+      "image_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Close-up of child's small hand dipping reed pen into black inkpot carefully writing Hindi vowel. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.5,
+      "motion": "pan_right",
+      "caption": "सरकंडे की कलम",
+      "image_path": "assets/scene_002.png",
+      "clip_path": "assets/scene_002.mp4",
+      "audio_start_s": 6.0,
+      "audio_end_s": 12.5,
+      "scene_number": 2,
+      "title_hindi": "सरकंडे की कलम",
+      "characters_hindi": "रोहन और दादी",
+      "location_hindi": "गाँव का घर",
+      "action_hindi": "सरकंडे की कलम से सुलेख लिखने का वो पहला अभ्यास।",
+      "dialogue_hindi": "सरकंडे की कलम से सुलेख लिखने का वो पहला अभ्यास।",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Close-up of child's small hand dipping reed pen into black inkpot carefully writing Hindi vowel. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "has_native_audio": true,
+      "status": "completed"
+    },
+    {
+      "idx": 2,
+      "narration": "हाथों में लगी स्याही और बस्ते में बंद नई किताबें।",
+      "image_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Boy proudly inspecting blue ink stains on fingertips while holding canvas school bag on bench. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 7.0,
+      "motion": "zoom_in",
+      "caption": "स्याही भरे हाथ",
+      "image_path": "assets/scene_003.png",
+      "clip_path": "assets/scene_003.mp4",
+      "audio_start_s": 12.5,
+      "audio_end_s": 19.5,
+      "scene_number": 3,
+      "title_hindi": "स्याही भरे हाथ",
+      "characters_hindi": "रोहन और दादी",
+      "location_hindi": "गाँव का घर",
+      "action_hindi": "हाथों में लगी स्याही और बस्ते में बंद नई किताबें।",
+      "dialogue_hindi": "हाथों में लगी स्याही और बस्ते में बंद नई किताबें।",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Boy proudly inspecting blue ink stains on fingertips while holding canvas school bag on bench. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "has_native_audio": true,
+      "status": "completed"
+    },
+    {
+      "idx": 3,
+      "narration": "मास्टर जी की प्यार भरी नज़र और दोस्तों की हँसी।",
+      "image_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Kind village school teacher with spectacles leaning over desk gently guiding student's hand with smile. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.0,
+      "motion": "pan_left",
+      "caption": "मास्टर जी नज़र",
+      "image_path": "assets/scene_004.png",
+      "clip_path": "assets/scene_004.mp4",
+      "audio_start_s": 19.5,
+      "audio_end_s": 25.5,
+      "scene_number": 4,
+      "title_hindi": "मास्टर जी नज़र",
+      "characters_hindi": "रोहन और दादी",
+      "location_hindi": "गाँव का घर",
+      "action_hindi": "मास्टर जी की प्यार भरी नज़र और दोस्तों की हँसी।",
+      "dialogue_hindi": "मास्टर जी की प्यार भरी नज़र और दोस्तों की हँसी।",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Kind village school teacher with spectacles leaning over desk gently guiding student's hand with smile. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "has_native_audio": true,
+      "status": "completed"
+    },
+    {
+      "idx": 4,
+      "narration": "वो तख्ती की लिखाई आज भी यादों में ताज़ा है।",
+      "image_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Empty wooden classroom after hours with slates stacked neatly beside blackboard in peaceful dust motes. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.5,
+      "motion": "zoom_out",
+      "caption": "तख्ती की याद",
+      "image_path": "assets/scene_005.png",
+      "clip_path": "assets/scene_005.mp4",
+      "audio_start_s": 25.5,
+      "audio_end_s": 32.0,
+      "scene_number": 5,
+      "title_hindi": "तख्ती की याद",
+      "characters_hindi": "रोहन और दादी",
+      "location_hindi": "गाँव का घर",
+      "action_hindi": "वो तख्ती की लिखाई आज भी यादों में ताज़ा है।",
+      "dialogue_hindi": "वो तख्ती की लिखाई आज भी यादों में ताज़ा है।",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Empty wooden classroom after hours with slates stacked neatly beside blackboard in peaceful dust motes. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "has_native_audio": true,
+      "status": "completed"
+    }
+  ],
+  "audio": {
+    "voice_path": "assets/voice.wav",
+    "duration_s": 32.0,
+    "word_timings_path": null,
+    "provider": "native-video-audio"
+  },
+  "assets": {
+    "music_path": "assets/music.wav",
+    "music_source": "synth-ambient-cc0",
+    "captions_path": "assets/captions.ass",
+    "stock_paths": [],
+    "license_manifest": [
+      {
+        "asset": "music.wav",
+        "license": "CC0-1.0",
+        "attribution": false
+      }
+    ]
+  },
+  "video": {
+    "final_path": "assets/final.mp4",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "duration_s": 25.24,
+    "size_bytes": 12840054
+  },
+  "thumbnail": {
+    "path": "assets/thumb.jpg",
+    "width": 1280,
+    "height": 720
+  },
+  "upload": {
+    "title": "स्कूल का पहला दिन और तख्ती की लिखाई",
+    "description": "स्कूल का पहला दिन और तख्ती की लिखाई\n\nलकड़ी की तख्ती पर मुलतानी मिट्टी का वो गीला लेप लगाना। सरकंडे की कलम से सुलेख लिखने का वो पहला अभ्यास। हाथों में लगी स्याही और बस्ते में बंद नई किताबें। मास्टर जी की प्यार भरी नज़र और दोस्तों की हँसी। वो तख्ती की लिखाई आज भी यादों में ताज़ा है।\n\n#90sIndia #Nostalgia #HindiStories #Animation #VillageLife #AutoCast\n\n\n\n---\nThis video features AI-generated 1990s nostalgic animation, dialogue, and music.\nCreated autonomously by AutoCast.",
+    "tags": [
+      "स्कूल",
+      "पहला",
+      "दिन",
+      "तख्ती",
+      "90s India",
+      "nostalgia",
+      "1990s Indian village",
+      "Hindi animation",
+      "Indian childhood",
+      "Chiku",
+      "mango summer",
+      "village story",
+      "nostalgic memories"
+    ],
+    "privacy": "private",
+    "ai_disclosure": true,
+    "youtube_video_id": "_aeLXFKITWU",
+    "uploaded_at": "2026-10-06T02:55:28.996474+00:00"
+  },
+  "stages": [
+    {
+      "name": "topic",
+      "status": "completed",
+      "provider_used": "template-fallback",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-06T02:46:32.226111+00:00",
+      "ended_at": "2026-10-06T02:46:38.399520+00:00"
+    },
+    {
+      "name": "script",
+      "status": "completed",
+      "provider_used": "template-seed",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-06T02:46:38.400252+00:00",
+      "ended_at": "2026-10-06T02:46:39.300379+00:00"
+    },
+    {
+      "name": "direction",
+      "status": "completed",
+      "provider_used": "template-seed",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-06T02:46:39.301081+00:00",
+      "ended_at": "2026-10-06T02:46:40.507172+00:00"
+    },
+    {
+      "name": "images",
+      "status": "completed",
+      "provider_used": "agnes-video",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-06T02:46:40.508401+00:00",
+      "ended_at": "2026-10-06T02:54:55.503297+00:00"
+    },
+    {
+      "name": "tts",
+      "status": "completed",
+      "provider_used": "native-video-audio",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-06T02:54:55.504046+00:00",
+      "ended_at": "2026-10-06T02:54:55.504968+00:00"
+    },
+    {
+      "name": "assets",
+      "status": "completed",
+      "provider_used": null,
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-06T02:54:55.505711+00:00",
+      "ended_at": "2026-10-06T02:54:55.823196+00:00"
+    },
+    {
+      "name": "video",
+      "status": "completed",
+      "provider_used": null,
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-06T02:54:55.824219+00:00",
+      "ended_at": "2026-10-06T02:55:23.626185+00:00"
+    },
+    {
+      "name": "thumbnail",
+      "status": "completed",
+      "provider_used": null,
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-06T02:55:23.627175+00:00",
+      "ended_at": "2026-10-06T02:55:23.894784+00:00"
+    },
+    {
+      "name": "upload",
+      "status": "completed",
+      "provider_used": "youtube-data-api-v3",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-06T02:55:23.895735+00:00",
+      "ended_at": "2026-10-06T02:55:29.975819+00:00"
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{"ts": "2026-10-06T02:46:32.225324+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "=== AutoCast run 2026-10-06 (dry_run=False) ==="}
+{"ts": "2026-10-06T02:46:32.225597+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "orchestrator: new run 2026-10-06"}
+{"ts": "2026-10-06T02:46:32.545099+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: trying pollinations-openai (attempt 1)"}
+{"ts": "2026-10-06T02:46:32.545256+00:00", "level": "INFO", "logger": "autocast.providers.llm", "msg": "llm[topic-rank]: calling pollinations-openai (keyless, POST)"}
+{"ts": "2026-10-06T02:46:38.398846+00:00", "level": "WARNING", "logger": "autocast.net", "msg": "net: POST https://text.pollinations.ai/openai failed (attempt 1/1): Server error '500 Internal Server Error' for url 'https://text.pollinations.ai/openai'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500"}
+{"ts": "2026-10-06T02:46:38.399080+00:00", "level": "WARNING", "logger": "autocast.cascade", "msg": "cascade: pollinations-openai failed: Server error '500 Internal Server Error' for url 'https://text.pollinations.ai/openai'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500"}
+{"ts": "2026-10-06T02:46:38.399249+00:00", "level": "WARNING", "logger": "autocast.providers.llm", "msg": "llm: all providers failed (all providers failed -> pollinations-openai: HTTPStatusError: Server error '500 Internal Server Error' for url 'https://text.pollinations.ai/openai'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500); caller falls back to template"}
+{"ts": "2026-10-06T02:46:38.399445+00:00", "level": "INFO", "logger": "autocast.stages.topic", "msg": "topic: chose 'स्कूल का पहला दिन और तख्ती की लिखाई' (source=google-trends-rss) via template-fallback"}
+{"ts": "2026-10-06T02:46:38.400172+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage topic: completed"}
+{"ts": "2026-10-06T02:46:38.400703+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: trying pollinations-openai (attempt 1)"}
+{"ts": "2026-10-06T02:46:38.400815+00:00", "level": "INFO", "logger": "autocast.providers.llm", "msg": "llm[script]: calling pollinations-openai (keyless, POST)"}
+{"ts": "2026-10-06T02:46:39.299721+00:00", "level": "WARNING", "logger": "autocast.net", "msg": "net: POST https://text.pollinations.ai/openai failed (attempt 1/1): Client error '402 Payment Required' for url 'https://text.pollinations.ai/openai'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402"}
+{"ts": "2026-10-06T02:46:39.299935+00:00", "level": "WARNING", "logger": "autocast.cascade", "msg": "cascade: pollinations-openai failed: Client error '402 Payment Required' for url 'https://text.pollinations.ai/openai'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402"}
+{"ts": "2026-10-06T02:46:39.300106+00:00", "level": "WARNING", "logger": "autocast.providers.llm", "msg": "llm: all providers failed (all providers failed -> pollinations-openai: HTTPStatusError: Client error '402 Payment Required' for url 'https://text.pollinations.ai/openai'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402); caller falls back to template"}
+{"ts": "2026-10-06T02:46:39.300308+00:00", "level": "INFO", "logger": "autocast.stages.script", "msg": "script: 51 words via template-seed"}
+{"ts": "2026-10-06T02:46:39.301001+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage script: completed"}
+{"ts": "2026-10-06T02:46:39.301530+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: trying pollinations-openai (attempt 1)"}
+{"ts": "2026-10-06T02:46:39.301643+00:00", "level": "INFO", "logger": "autocast.providers.llm", "msg": "llm[direction]: calling pollinations-openai (keyless, POST)"}
+{"ts": "2026-10-06T02:46:40.506333+00:00", "level": "WARNING", "logger": "autocast.net", "msg": "net: POST https://text.pollinations.ai/openai failed (attempt 1/1): Client error '402 Payment Required' for url 'https://text.pollinations.ai/openai'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402"}
+{"ts": "2026-10-06T02:46:40.506534+00:00", "level": "WARNING", "logger": "autocast.cascade", "msg": "cascade: pollinations-openai failed: Client error '402 Payment Required' for url 'https://text.pollinations.ai/openai'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402"}
+{"ts": "2026-10-06T02:46:40.506647+00:00", "level": "WARNING", "logger": "autocast.providers.llm", "msg": "llm: all providers failed (all providers failed -> pollinations-openai: HTTPStatusError: Client error '402 Payment Required' for url 'https://text.pollinations.ai/openai'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402); caller falls back to template"}
+{"ts": "2026-10-06T02:46:40.507097+00:00", "level": "INFO", "logger": "autocast.stages.direction", "msg": "direction: 2 characters, 5 scenes via template-seed"}
+{"ts": "2026-10-06T02:46:40.508323+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage direction: completed"}
+{"ts": "2026-10-06T02:46:40.509260+00:00", "level": "INFO", "logger": "autocast.stages.images", "msg": "scene 1: generating video clip (duration=6.0s)..."}
+{"ts": "2026-10-06T02:46:40.511647+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: trying agnes-video (attempt 1)"}
+{"ts": "2026-10-06T02:46:40.512467+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: submitting scene to agnes-video-v2.0 (duration=6s, native_audio=True)"}
+{"ts": "2026-10-06T02:46:44.543036+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: task created with ID: video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzBiYjA1N2ZmYzJhMDQ3NzNhNjg1YTE4MmM3ODFhMzgx"}
+{"ts": "2026-10-06T02:46:44.847866+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 0s, status: in_progress)"}
+{"ts": "2026-10-06T02:46:50.202134+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 5s, status: in_progress)"}
+{"ts": "2026-10-06T02:46:55.551516+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 10s, status: in_progress)"}
+{"ts": "2026-10-06T02:47:00.890258+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 16s, status: in_progress)"}
+{"ts": "2026-10-06T02:47:06.251290+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 21s, status: in_progress)"}
+{"ts": "2026-10-06T02:47:12.417138+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 26s, status: in_progress)"}
+{"ts": "2026-10-06T02:47:17.757876+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 32s, status: in_progress)"}
+{"ts": "2026-10-06T02:47:23.077716+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 38s, status: in_progress)"}
+{"ts": "2026-10-06T02:47:28.398887+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 43s, status: in_progress)"}
+{"ts": "2026-10-06T02:47:33.767844+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 48s, status: in_progress)"}
+{"ts": "2026-10-06T02:47:39.099037+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 54s, status: in_progress)"}
+{"ts": "2026-10-06T02:47:44.426499+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 59s, status: in_progress)"}
+{"ts": "2026-10-06T02:47:49.781836+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 64s, status: in_progress)"}
+{"ts": "2026-10-06T02:47:55.114528+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 70s, status: in_progress)"}
+{"ts": "2026-10-06T02:48:00.443251+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 75s, status: in_progress)"}
+{"ts": "2026-10-06T02:48:05.818299+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 80s, status: in_progress)"}
+{"ts": "2026-10-06T02:48:11.289363+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 86s, status: completed)"}
+{"ts": "2026-10-06T02:48:11.289587+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: downloading generated video from https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-..."}
+{"ts": "2026-10-06T02:48:14.428796+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: saved scene video to scene_001.mp4 (2191454 bytes)"}
+{"ts": "2026-10-06T02:48:14.813829+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: agnes-video succeeded"}
+{"ts": "2026-10-06T02:48:14.814920+00:00", "level": "INFO", "logger": "autocast.stages.images", "msg": "scene 2: generating video clip (duration=6.5s)..."}
+{"ts": "2026-10-06T02:48:14.815062+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: trying agnes-video (attempt 1)"}
+{"ts": "2026-10-06T02:48:14.815181+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: submitting scene to agnes-video-v2.0 (duration=6s, native_audio=True)"}
+{"ts": "2026-10-06T02:48:16.008925+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: task created with ID: video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2FhM2UyODcyNDA2ZjQ0MTM4MjQxNGQ1Zjg0NjY5Nzlk"}
+{"ts": "2026-10-06T02:48:16.323155+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 0s, status: in_progress)"}
+{"ts": "2026-10-06T02:48:21.665106+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 5s, status: in_progress)"}
+{"ts": "2026-10-06T02:48:26.992755+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 10s, status: in_progress)"}
+{"ts": "2026-10-06T02:48:32.354246+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 15s, status: in_progress)"}
+{"ts": "2026-10-06T02:48:37.707839+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 21s, status: in_progress)"}
+{"ts": "2026-10-06T02:48:43.028840+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 26s, status: in_progress)"}
+{"ts": "2026-10-06T02:48:48.398812+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 32s, status: in_progress)"}
+{"ts": "2026-10-06T02:48:53.739676+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 37s, status: in_progress)"}
+{"ts": "2026-10-06T02:48:59.067323+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 42s, status: in_progress)"}
+{"ts": "2026-10-06T02:49:04.411848+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 48s, status: in_progress)"}
+{"ts": "2026-10-06T02:49:09.750591+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 53s, status: in_progress)"}
+{"ts": "2026-10-06T02:49:15.122865+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 58s, status: in_progress)"}
+{"ts": "2026-10-06T02:49:20.465371+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 64s, status: in_progress)"}
+{"ts": "2026-10-06T02:49:25.787190+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 69s, status: in_progress)"}
+{"ts": "2026-10-06T02:49:31.146285+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 74s, status: in_progress)"}
+{"ts": "2026-10-06T02:49:36.486894+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 80s, status: in_progress)"}
+{"ts": "2026-10-06T02:49:41.825855+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 85s, status: in_progress)"}
+{"ts": "2026-10-06T02:49:47.154384+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 90s, status: in_progress)"}
+{"ts": "2026-10-06T02:49:56.718025+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 96s, status: completed)"}
+{"ts": "2026-10-06T02:49:56.718253+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: downloading generated video from https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-..."}
+{"ts": "2026-10-06T02:49:59.901876+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: saved scene video to scene_002.mp4 (1457496 bytes)"}
+{"ts": "2026-10-06T02:50:00.047510+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: agnes-video succeeded"}
+{"ts": "2026-10-06T02:50:00.048597+00:00", "level": "INFO", "logger": "autocast.stages.images", "msg": "scene 3: generating video clip (duration=7.0s)..."}
+{"ts": "2026-10-06T02:50:00.048716+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: trying agnes-video (attempt 1)"}
+{"ts": "2026-10-06T02:50:00.048818+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: submitting scene to agnes-video-v2.0 (duration=7s, native_audio=True)"}
+{"ts": "2026-10-06T02:50:03.442261+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: task created with ID: video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzI3MThmODA4MzQ1MjQ1NzU4MDM5MmViM2JmNzMwZjNk"}
+{"ts": "2026-10-06T02:50:03.759326+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 0s, status: in_progress)"}
+{"ts": "2026-10-06T02:50:09.086890+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 5s, status: in_progress)"}
+{"ts": "2026-10-06T02:50:14.412045+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 10s, status: in_progress)"}
+{"ts": "2026-10-06T02:50:19.746574+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 15s, status: in_progress)"}
+{"ts": "2026-10-06T02:50:25.086499+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 21s, status: in_progress)"}
+{"ts": "2026-10-06T02:50:30.415809+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 26s, status: in_progress)"}
+{"ts": "2026-10-06T02:50:35.751140+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 31s, status: in_progress)"}
+{"ts": "2026-10-06T02:50:41.092293+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 37s, status: in_progress)"}
+{"ts": "2026-10-06T02:50:46.427586+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 42s, status: in_progress)"}
+{"ts": "2026-10-06T02:50:51.764288+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 47s, status: in_progress)"}
+{"ts": "2026-10-06T02:50:57.088302+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 53s, status: in_progress)"}
+{"ts": "2026-10-06T02:51:02.424933+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 58s, status: in_progress)"}
+{"ts": "2026-10-06T02:51:07.760664+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 63s, status: in_progress)"}
+{"ts": "2026-10-06T02:51:13.134629+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 69s, status: in_progress)"}
+{"ts": "2026-10-06T02:51:18.474087+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 74s, status: in_progress)"}
+{"ts": "2026-10-06T02:51:23.803039+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 80s, status: in_progress)"}
+{"ts": "2026-10-06T02:51:29.130154+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 85s, status: in_progress)"}
+{"ts": "2026-10-06T02:51:34.484670+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 90s, status: in_progress)"}
+{"ts": "2026-10-06T02:51:39.820664+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 96s, status: in_progress)"}
+{"ts": "2026-10-06T02:51:45.442038+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 101s, status: completed)"}
+{"ts": "2026-10-06T02:51:45.442281+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: downloading generated video from https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-..."}
+{"ts": "2026-10-06T02:51:49.530618+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: saved scene video to scene_003.mp4 (2397640 bytes)"}
+{"ts": "2026-10-06T02:51:49.706925+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: agnes-video succeeded"}
+{"ts": "2026-10-06T02:51:49.708268+00:00", "level": "INFO", "logger": "autocast.stages.images", "msg": "scene 4: generating video clip (duration=6.0s)..."}
+{"ts": "2026-10-06T02:51:49.708407+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: trying agnes-video (attempt 1)"}
+{"ts": "2026-10-06T02:51:49.708502+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: submitting scene to agnes-video-v2.0 (duration=6s, native_audio=True)"}
+{"ts": "2026-10-06T02:51:52.517137+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: task created with ID: video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzJiNWFkYzViNjM4YzRhZGFiMzdjMmM5OTA1Mjg1NzVi"}
+{"ts": "2026-10-06T02:51:52.820928+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 0s, status: in_progress)"}
+{"ts": "2026-10-06T02:51:58.196068+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 5s, status: in_progress)"}
+{"ts": "2026-10-06T02:52:03.527419+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 10s, status: in_progress)"}
+{"ts": "2026-10-06T02:52:08.846544+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 16s, status: in_progress)"}
+{"ts": "2026-10-06T02:52:14.203445+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 21s, status: in_progress)"}
+{"ts": "2026-10-06T02:52:19.545131+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 26s, status: in_progress)"}
+{"ts": "2026-10-06T02:52:24.869552+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 32s, status: in_progress)"}
+{"ts": "2026-10-06T02:52:30.208399+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 37s, status: in_progress)"}
+{"ts": "2026-10-06T02:52:35.549575+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 42s, status: in_progress)"}
+{"ts": "2026-10-06T02:52:41.693849+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 48s, status: in_progress)"}
+{"ts": "2026-10-06T02:52:47.078199+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 54s, status: in_progress)"}
+{"ts": "2026-10-06T02:52:52.408265+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 59s, status: in_progress)"}
+{"ts": "2026-10-06T02:52:57.748925+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 64s, status: in_progress)"}
+{"ts": "2026-10-06T02:53:03.098683+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 70s, status: in_progress)"}
+{"ts": "2026-10-06T02:53:08.460574+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 75s, status: in_progress)"}
+{"ts": "2026-10-06T02:53:13.784933+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 80s, status: in_progress)"}
+{"ts": "2026-10-06T02:53:19.312161+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 86s, status: completed)"}
+{"ts": "2026-10-06T02:53:19.312404+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: downloading generated video from https://platform-outputs.agnes-ai.space/videos/agnes-video-v..."}
+{"ts": "2026-10-06T02:53:21.300088+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: saved scene video to scene_004.mp4 (2004807 bytes)"}
+{"ts": "2026-10-06T02:53:21.459897+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: agnes-video succeeded"}
+{"ts": "2026-10-06T02:53:21.461044+00:00", "level": "INFO", "logger": "autocast.stages.images", "msg": "scene 5: generating video clip (duration=6.5s)..."}
+{"ts": "2026-10-06T02:53:21.461158+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: trying agnes-video (attempt 1)"}
+{"ts": "2026-10-06T02:53:21.461262+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: submitting scene to agnes-video-v2.0 (duration=6s, native_audio=True)"}
+{"ts": "2026-10-06T02:53:21.996374+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: task created with ID: video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzBlZTA0NzJiOTkyNzQ5YTg5YjFmOTUzNDJkYjE2ZGNl"}
+{"ts": "2026-10-06T02:53:22.296440+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 0s, status: in_progress)"}
+{"ts": "2026-10-06T02:53:27.621239+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 5s, status: in_progress)"}
+{"ts": "2026-10-06T02:53:32.977672+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 10s, status: in_progress)"}
+{"ts": "2026-10-06T02:53:38.298543+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 15s, status: in_progress)"}
+{"ts": "2026-10-06T02:53:43.672757+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 21s, status: in_progress)"}
+{"ts": "2026-10-06T02:53:48.997690+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 26s, status: in_progress)"}
+{"ts": "2026-10-06T02:53:54.328393+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 32s, status: in_progress)"}
+{"ts": "2026-10-06T02:53:59.645557+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 37s, status: in_progress)"}
+{"ts": "2026-10-06T02:54:05.107724+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 42s, status: in_progress)"}
+{"ts": "2026-10-06T02:54:10.471889+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 48s, status: in_progress)"}
+{"ts": "2026-10-06T02:54:15.849818+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 53s, status: in_progress)"}
+{"ts": "2026-10-06T02:54:21.263095+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 58s, status: in_progress)"}
+{"ts": "2026-10-06T02:54:26.631016+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 64s, status: in_progress)"}
+{"ts": "2026-10-06T02:54:31.983357+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 69s, status: in_progress)"}
+{"ts": "2026-10-06T02:54:37.354402+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 74s, status: in_progress)"}
+{"ts": "2026-10-06T02:54:42.712372+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 80s, status: in_progress)"}
+{"ts": "2026-10-06T02:54:48.037665+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 85s, status: in_progress)"}
+{"ts": "2026-10-06T02:54:53.515596+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: waiting... (elapsed: 91s, status: completed)"}
+{"ts": "2026-10-06T02:54:53.515842+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: downloading generated video from https://platform-outputs.agnes-ai.space/videos/agnes-video-v..."}
+{"ts": "2026-10-06T02:54:55.353000+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: saved scene video to scene_005.mp4 (1500070 bytes)"}
+{"ts": "2026-10-06T02:54:55.502135+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: agnes-video succeeded"}
+{"ts": "2026-10-06T02:54:55.503205+00:00", "level": "INFO", "logger": "autocast.stages.images", "msg": "video generation: completed 5 scenes via agnes-video"}
+{"ts": "2026-10-06T02:54:55.503937+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage images: completed"}
+{"ts": "2026-10-06T02:54:55.504891+00:00", "level": "INFO", "logger": "autocast.stages.tts", "msg": "tts: using native video model audio (32.0s duration, provider=native-video-audio)"}
+{"ts": "2026-10-06T02:54:55.505626+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage tts: completed"}
+{"ts": "2026-10-06T02:54:55.506636+00:00", "level": "INFO", "logger": "autocast.ffmpeg", "msg": "ffmpeg: /usr/bin/ffmpeg -y -f lavfi -i sine=frequency=110.0:duration=32.000 -f lavfi -i sine=frequency=164.81:duration=32.000 -f lavfi -i sine=frequency=220.0:duration=32.000 -f lavfi -i sine=frequency=220.6:duration=32.000 -filter_complex [0][1][2][3]amix=inputs=4:duration=longest,volume=4.0,lowpass=f=900,afade=t=in:st=0:d=1.500,afade=t=out:st=30.500:d=1.500[a] -map [a] -ar 24000 -ac 1 -t 32.000 -c:a pcm_s16le /home/runner/work/autocast/autocast/runs/2026-10-06/assets/music.wav"}
+{"ts": "2026-10-06T02:54:55.823059+00:00", "level": "INFO", "logger": "autocast.stages.assets", "msg": "assets: captions + music_source=synth-ambient-cc0"}
+{"ts": "2026-10-06T02:54:55.824132+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage assets: completed"}
+{"ts": "2026-10-06T02:54:55.825162+00:00", "level": "INFO", "logger": "autocast.ffmpeg", "msg": "ffmpeg: /usr/bin/ffmpeg -y -i /home/runner/work/autocast/autocast/runs/2026-10-06/assets/scene_001.mp4 -vf scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1 -r 30 -c:v libx264 -pix_fmt yuv420p -c:a aac -ar 48000 -ac 2 /home/runner/work/autocast/autocast/runs/2026-10-06/assets/norm_scene_001.mp4"}
+{"ts": "2026-10-06T02:55:01.304493+00:00", "level": "INFO", "logger": "autocast.ffmpeg", "msg": "ffmpeg: /usr/bin/ffmpeg -y -i /home/runner/work/autocast/autocast/runs/2026-10-06/assets/scene_002.mp4 -vf scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1 -r 30 -c:v libx264 -pix_fmt yuv420p -c:a aac -ar 48000 -ac 2 /home/runner/work/autocast/autocast/runs/2026-10-06/assets/norm_scene_002.mp4"}
+{"ts": "2026-10-06T02:55:06.253181+00:00", "level": "INFO", "logger": "autocast.ffmpeg", "msg": "ffmpeg: /usr/bin/ffmpeg -y -i /home/runner/work/autocast/autocast/runs/2026-10-06/assets/scene_003.mp4 -vf scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1 -r 30 -c:v libx264 -pix_fmt yuv420p -c:a aac -ar 48000 -ac 2 /home/runner/work/autocast/autocast/runs/2026-10-06/assets/norm_scene_003.mp4"}
+{"ts": "2026-10-06T02:55:12.059869+00:00", "level": "INFO", "logger": "autocast.ffmpeg", "msg": "ffmpeg: /usr/bin/ffmpeg -y -i /home/runner/work/autocast/autocast/runs/2026-10-06/assets/scene_004.mp4 -vf scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1 -r 30 -c:v libx264 -pix_fmt yuv420p -c:a aac -ar 48000 -ac 2 /home/runner/work/autocast/autocast/runs/2026-10-06/assets/norm_scene_004.mp4"}
+{"ts": "2026-10-06T02:55:17.397716+00:00", "level": "INFO", "logger": "autocast.ffmpeg", "msg": "ffmpeg: /usr/bin/ffmpeg -y -i /home/runner/work/autocast/autocast/runs/2026-10-06/assets/scene_005.mp4 -vf scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1 -r 30 -c:v libx264 -pix_fmt yuv420p -c:a aac -ar 48000 -ac 2 /home/runner/work/autocast/autocast/runs/2026-10-06/assets/norm_scene_005.mp4"}
+{"ts": "2026-10-06T02:55:22.741041+00:00", "level": "INFO", "logger": "autocast.ffmpeg", "msg": "ffmpeg: /usr/bin/ffmpeg -y -f concat -safe 0 -i /home/runner/work/autocast/autocast/runs/2026-10-06/assets/concat.txt -c copy /home/runner/work/autocast/autocast/runs/2026-10-06/assets/reel.mp4"}
+{"ts": "2026-10-06T02:55:22.921800+00:00", "level": "INFO", "logger": "autocast.ffmpeg", "msg": "ffmpeg: /usr/bin/ffmpeg -y -i /home/runner/work/autocast/autocast/runs/2026-10-06/assets/reel.mp4 -i /home/runner/work/autocast/autocast/runs/2026-10-06/assets/music.wav -filter_complex [1:a]volume=-22.0dB[bg];[0:a][bg]amix=inputs=2:duration=first:dropout_transition=2[aout] -map 0:v -map [aout] -c:v copy -c:a aac -b:a 192k -shortest /home/runner/work/autocast/autocast/runs/2026-10-06/assets/final.mp4"}
+{"ts": "2026-10-06T02:55:23.626021+00:00", "level": "INFO", "logger": "autocast.stages.video", "msg": "video: assembled final.mp4 with native dialogue (5 clips, 12840054 bytes)"}
+{"ts": "2026-10-06T02:55:23.627081+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage video: completed"}
+{"ts": "2026-10-06T02:55:23.894661+00:00", "level": "INFO", "logger": "autocast.stages.thumbnail", "msg": "thumbnail: assets/thumb.jpg (pillow=True)"}
+{"ts": "2026-10-06T02:55:23.895644+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage thumbnail: completed"}
+{"ts": "2026-10-06T02:55:23.995146+00:00", "level": "INFO", "logger": "autocast.stages.upload", "msg": "upload: initiating YouTube resumable upload session (size=12840054 bytes)..."}
+{"ts": "2026-10-06T02:55:24.834426+00:00", "level": "INFO", "logger": "autocast.stages.upload", "msg": "upload: uploading video payload to YouTube..."}
+{"ts": "2026-10-06T02:55:25.359487+00:00", "level": "INFO", "logger": "autocast.stages.upload", "msg": "upload: video upload completed successfully (video_id=_aeLXFKITWU)"}
+{"ts": "2026-10-06T02:55:28.996299+00:00", "level": "INFO", "logger": "autocast.stages.upload", "msg": "upload: custom thumbnail set for video _aeLXFKITWU"}
+{"ts": "2026-10-06T02:55:28.996544+00:00", "level": "INFO", "logger": "autocast.stages.upload", "msg": "upload: published video https://youtu.be/_aeLXFKITWU (privacy=private)"}
+{"ts": "2026-10-06T02:55:29.975617+00:00", "level": "INFO", "logger": "autocast.stages.upload", "msg": "upload: notification email successfully sent to ayushdesign291@gmail.com for video _aeLXFKITWU"}
+{"ts": "2026-10-06T02:55:29.976856+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage upload: completed"}
+{"ts": "2026-10-06T02:55:29.977819+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "=== done: topic=completed script=completed direction=completed images=completed tts=completed assets=completed video=completed thumbnail=completed upload=completed ==="}
