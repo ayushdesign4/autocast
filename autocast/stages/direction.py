@@ -8,6 +8,7 @@ Also populates `spine.shots` for backward compatibility with existing tests and 
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import re
@@ -86,8 +87,106 @@ def _normalize_scene_prompt(prompt: str) -> str:
     return p
 
 
-def _template_direction(title: str) -> tuple[list[dict], list[dict], str]:
+_SCENE_SETTINGS = (
+    ("गांव का दालान और सुबह की धूप", "morning golden sunlight spilling across a rustic Indian village courtyard with clay tiles and earthen floor"),
+    ("आम का बगीचा और कच्ची पगडंडी", "sun-dappled mango orchard with ancient banyan roots and dusty country path"),
+    ("गांव की पुरानी चौपाल और कुआं", "traditional village gathering area under large neem tree beside stone water well"),
+    ("छत और शाम का आसमान", "rooftop terrace with charpai beds, clay pots, and twilight sky full of gentle swallows"),
+    ("घर का आंगन और मिट्टी का चूल्हा", "cozy home veranda with traditional brass utensils, earthen stove glowing with warm embers"),
+    ("पुरानी लकड़ी की खिड़की और बारिश", "vintage wooden slatted window overlooking lush green village lanes during soft drizzle"),
+    ("गांव का मेला और फिरकी", "vibrant colorful village fair with wooden stalls, paper pinwheels, and festive lanterns"),
+    ("रात का आंगन और तारों भरा आसमान", "quiet village courtyard under clear starry night sky, oil lamps softly flickering"),
+)
+
+
+def compute_scene_hash(
+    video_prompt: str, dialogue_hindi: str = "", duration_s: float = 9.0
+) -> str:
+    """Deterministically hash all generation-relevant inputs for a scene."""
+    payload = f"prompt:{video_prompt.strip()}|dial:{dialogue_hindi.strip()}|dur:{duration_s:.1f}"
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
+
+
+def _script_aware_direction(
+    script_text: str, title: str, num_scenes: int = 8
+) -> tuple[list[dict], list[dict], str]:
+    """Derive 7-8 meaningful chronological scenes directly from the Hindi script text.
+
+    Ensures the story is never silently replaced by generic hardcoded scenes.
+    """
+    words = script_text.split()
+    if not words:
+        words = title.split() or ["यादें"]
+
+    n_words = len(words)
+    target_count = min(8, max(7, num_scenes))
+    if n_words < target_count:
+        target_count = max(1, n_words)
+
+    word_chunks: list[list[str]] = []
+    for i in range(target_count):
+        start = int(round(i * n_words / target_count))
+        end = int(round((i + 1) * n_words / target_count))
+        chunk = words[start:end]
+        if chunk:
+            word_chunks.append(chunk)
+
+    if not word_chunks:
+        word_chunks = [words]
+
+    target_count = len(word_chunks)
+    dur_per_scene = min(10.0, max(9.0, round(72.0 / target_count, 1)))
+
+    scenes: list[dict] = []
+    for idx, w_chunk in enumerate(word_chunks):
+        chunk_text = " ".join(w_chunk)
+        loc_name, loc_desc = _SCENE_SETTINGS[idx % len(_SCENE_SETTINGS)]
+        scene_num = idx + 1
+        title_h = f"{title[:25]} - दृश्य {scene_num}"
+
+        video_p = (
+            f"{GHIBLI_STYLE_PREFIX} In a nostalgic 1990s Indian setting depicting '{title}', scene {scene_num} of {target_count}. "
+            f"Environment: {loc_desc}. "
+            f"Characters in period-authentic 1990s simple Indian attire interact naturally. "
+            f"Character speaks in Hindi: '{chunk_text}' with natural lip movement and authentic ambient village sounds. "
+            f"Hand-drawn 2D animation aesthetic, Studio Ghibli style, lush watercolor textures, cinematic lighting. "
+            f"{ANTI_TEXT_PROMPT} Negative prompt: {NEGATIVE_PROMPT}."
+        )
+
+        scenes.append(
+            {
+                "idx": idx,
+                "scene_number": scene_num,
+                "title_hindi": title_h,
+                "characters_hindi": "आरव और परिवार",
+                "location_hindi": loc_name,
+                "action_hindi": chunk_text[:60],
+                "dialogue_hindi": chunk_text,
+                "video_prompt": video_p,
+                "narration": chunk_text,
+                "image_prompt": video_p,
+                "motion": _MOTIONS[idx % len(_MOTIONS)],
+                "caption": title_h[:60],
+                "duration_s": dur_per_scene,
+                "has_native_audio": True,
+                "status": "pending",
+            }
+        )
+
+    chars = _default_characters()
+    return chars, scenes, "script-aware-fallback"
+
+
+def _template_direction(title: str, script_text: str = "") -> tuple[list[dict], list[dict], str]:
     seed = seed_for_title(title)
+    if script_text:
+        chars, scenes, provider = _script_aware_direction(script_text, title)
+        if seed is not None:
+            if seed.characters:
+                chars = [dict(c) for c in seed.characters]
+            provider = TEMPLATE_SEED
+        return chars, scenes, provider
+
     if seed is not None:
         chars = [dict(c) for c in seed.characters]
         shots = [dict(s) for s in seed.shots]
@@ -98,29 +197,72 @@ def _template_direction(title: str) -> tuple[list[dict], list[dict], str]:
     return chars, shots, "template-fallback"
 
 
+def validate_direction(
+    scenes: list[dict | Scene],
+    *,
+    min_scenes: int = 6,
+    min_duration_s: float = 60.0,
+) -> None:
+    """Validate scene count, dialogue presence, duration, and visual diversity before video gen."""
+    if len(scenes) < min_scenes:
+        raise ValueError(
+            f"direction validation failed: only {len(scenes)} scenes parsed (need >= {min_scenes})"
+        )
+
+    total_dur = 0.0
+    prompts: list[str] = []
+    for i, s in enumerate(scenes):
+        dur = float(
+            getattr(s, "duration_s", None)
+            or (s.get("duration_s") if isinstance(s, dict) else 0.0)
+            or 0.0
+        )
+        total_dur += dur
+        dial = getattr(s, "dialogue_hindi", None) or (
+            s.get("dialogue_hindi") if isinstance(s, dict) else ""
+        )
+        narr = getattr(s, "narration", None) or (
+            s.get("narration") if isinstance(s, dict) else ""
+        )
+        if not (dial or narr):
+            raise ValueError(f"direction validation failed: scene {i+1} has no dialogue or narration")
+        prompt = getattr(s, "video_prompt", None) or (
+            s.get("video_prompt") if isinstance(s, dict) else ""
+        )
+        if not prompt:
+            raise ValueError(f"direction validation failed: scene {i+1} has empty video prompt")
+        prompts.append(prompt.strip())
+
+    if total_dur < min_duration_s:
+        raise ValueError(
+            f"direction validation failed: total duration {total_dur:.1f}s is below minimum {min_duration_s}s"
+        )
+
+    if len(set(prompts)) != len(prompts):
+        raise ValueError("direction validation failed: duplicate scene visual prompts detected")
+
+
 def _direction_prompt(script: str) -> str:
     return (
         "You are the director for a 1990s Indian nostalgic 2D animated film.\n"
         "From the Hindi story below, produce two things in a single JSON object:\n"
-        "1. 'character_bible': A list of all recurring characters with exact consistent visual descriptors.\n"
-        "2. 'scenes': A list of chronological scenes (approx 6 scenes per minute, each max 10 seconds).\n\n"
+        "1. 'character_bible': A concise list of recurring characters (name, age, clothing, appearance, personality).\n"
+        "2. 'scenes': A list of 7 to 8 chronological scenes covering the entire narrative arc (target 60-90s total runtime).\n\n"
         "Return ONLY a valid JSON object with keys 'character_bible' and 'scenes' (no markdown fences, no prose).\n\n"
-        "Each character in 'character_bible' must have:\n"
-        "  name, age, gender, height, body_type, skin_tone, face_shape, eyes, hair, hairstyle, clothing, footwear, accessories, unique_facial_features, personality, typical_expressions, body_language.\n\n"
         "Each scene in 'scenes' must have:\n"
-        "  scene_number: int (1, 2, ...)\n"
+        "  scene_number: int (1, 2, ... up to 7-8)\n"
         "  title_hindi: str (short Hindi scene title)\n"
         "  characters_hindi: str (names of characters in this scene)\n"
-        "  location_hindi: str (village courtyard, rooftop, mango orchard, etc.)\n"
+        "  location_hindi: str (setting in Hindi)\n"
         "  action_hindi: str (what happens in this scene in Hindi)\n"
-        "  dialogue_hindi: str (the exact spoken Hindi dialogue for this scene)\n"
-        "  duration_s: float (between 5.0 and 8.0, maximum 10.0)\n"
+        "  dialogue_hindi: str (the exact spoken Hindi dialogue for this scene from the story)\n"
+        "  duration_s: float (between 9.0 and 10.0 seconds)\n"
         "  video_prompt: str (the comprehensive English video-generation prompt)\n\n"
         "CRITICAL RULES FOR video_prompt:\n"
         "- Must start with:\n"
         f"  '{GHIBLI_STYLE_PREFIX}'\n"
-        "- Explicitly describe the environment, foreground, background, time of day, weather, camera movement, character actions, and object movement.\n"
-        "- NEVER use phrases like 'same character' or 'same outfit'. Repeat the exact character appearance and clothing details from the Character Bible every time.\n"
+        "- Explicitly describe the environment, lighting, camera angle, character action, and clothing.\n"
+        "- Every scene must depict a distinct visual progression of the story.\n"
         "- Incorporate the Hindi dialogue into the video prompt: Character says in Hindi: '<dialogue_hindi>' with natural lip movement and authentic ambient sounds.\n"
         f"- Strictly enforce anti-text rules: '{ANTI_TEXT_PROMPT}'\n"
         "- Conclude with negative visual instructions:\n"
@@ -234,7 +376,7 @@ def _coerce_direction(raw: dict) -> tuple[list[dict], list[dict]]:
         act_h = str(item.get("action_hindi", "")).strip()
         dial_h = str(item.get("dialogue_hindi", "")).strip()
         video_p = str(item.get("video_prompt", "")).strip()
-        dur_s = min(10.0, max(2.0, float(item.get("duration_s", 6.5))))
+        dur_s = min(10.0, max(8.0, float(item.get("duration_s", 9.0))))
 
         if not video_p:
             continue
@@ -277,21 +419,23 @@ def run(spine: Run, cfg: Config, *, dry_run: bool = False) -> Run:
         raise ValueError("direction stage: spine.script missing (run script first)")
 
     title = spine.topic.title if spine.topic else ""
-    prompt = _direction_prompt(spine.script.full_text)
+    script_text = spine.script.full_text
+    prompt = _direction_prompt(script_text)
     providers = build_llm_providers(
         cfg, prompt=prompt, kind="direction", allow_cerebras=False, dry_run=dry_run
     )
     llm_text, provider = try_llm(providers)
 
     if dry_run or not llm_text:
-        raw_chars, raw_scenes, provider = _template_direction(title)
+        raw_chars, raw_scenes, provider = _template_direction(title, script_text=script_text)
     else:
         try:
             raw_chars, raw_scenes = _coerce_direction(_extract_json_object(llm_text))
-            log.info("direction: parsed %d characters and %d scenes from %s", len(raw_chars), len(raw_scenes), provider)
+            validate_direction(raw_scenes)
+            log.info("direction: parsed and validated %d characters and %d scenes from %s", len(raw_chars), len(raw_scenes), provider)
         except Exception as exc:  # noqa: BLE001
-            log.warning("direction: JSON parse failed (%s); using template direction", exc)
-            raw_chars, raw_scenes, provider = _template_direction(title)
+            log.warning("direction: LLM direction invalid (%s); using script-aware fallback", exc)
+            raw_chars, raw_scenes, provider = _template_direction(title, script_text=script_text)
 
     # 1. Populate Character Bible
     spine.character_bible = CharacterBible(
@@ -299,43 +443,55 @@ def run(spine: Run, cfg: Config, *, dry_run: bool = False) -> Run:
     )
 
     # 2. Populate Scenes
-    spine.scenes = [
-        Scene(
-            scene_number=s.get("scene_number", i + 1),
-            title_hindi=s.get("title_hindi", ""),
-            characters_hindi=s.get("characters_hindi", ""),
-            location_hindi=s.get("location_hindi", ""),
-            action_hindi=s.get("action_hindi", ""),
-            dialogue_hindi=s.get("dialogue_hindi", ""),
-            video_prompt=_normalize_scene_prompt(s.get("video_prompt", "")),
-            duration_s=float(s.get("duration_s", 6.5)),
-            has_native_audio=True,
-            status="pending",
+    spine.scenes = []
+    for i, s in enumerate(raw_scenes):
+        norm_p = _normalize_scene_prompt(s.get("video_prompt", ""))
+        dial_h = str(s.get("dialogue_hindi", "")).strip()
+        dur_s = float(s.get("duration_s", 9.0))
+        p_hash = compute_scene_hash(norm_p, dial_h, dur_s)
+        spine.scenes.append(
+            Scene(
+                scene_number=s.get("scene_number", i + 1),
+                title_hindi=s.get("title_hindi", ""),
+                characters_hindi=s.get("characters_hindi", ""),
+                location_hindi=s.get("location_hindi", ""),
+                action_hindi=s.get("action_hindi", ""),
+                dialogue_hindi=dial_h,
+                video_prompt=norm_p,
+                duration_s=dur_s,
+                has_native_audio=True,
+                status="pending",
+                prompt_hash=p_hash,
+            )
         )
-        for i, s in enumerate(raw_scenes)
-    ]
 
     # 3. Mirror into spine.shots for backward compatibility with orchestrator / tests / dashboard
-    spine.shots = [
-        Shot(
-            idx=i,
-            scene_number=s.get("scene_number", i + 1),
-            title_hindi=s.get("title_hindi", ""),
-            characters_hindi=s.get("characters_hindi", ""),
-            location_hindi=s.get("location_hindi", ""),
-            action_hindi=s.get("action_hindi", ""),
-            dialogue_hindi=s.get("dialogue_hindi", ""),
-            video_prompt=_normalize_scene_prompt(s.get("video_prompt", "")),
-            narration=s.get("narration", ""),
-            image_prompt=_normalize_scene_prompt(s.get("image_prompt", s.get("video_prompt", ""))),
-            duration_s=float(s.get("duration_s", 6.5)),
-            motion=s.get("motion", "zoom_in"),
-            caption=s.get("caption", s.get("title_hindi", "")),
-            has_native_audio=True,
-            status="pending",
+    spine.shots = []
+    for i, s in enumerate(raw_scenes):
+        norm_p = _normalize_scene_prompt(s.get("video_prompt", ""))
+        dial_h = str(s.get("dialogue_hindi", "")).strip()
+        dur_s = float(s.get("duration_s", 9.0))
+        p_hash = compute_scene_hash(norm_p, dial_h, dur_s)
+        spine.shots.append(
+            Shot(
+                idx=i,
+                scene_number=s.get("scene_number", i + 1),
+                title_hindi=s.get("title_hindi", ""),
+                characters_hindi=s.get("characters_hindi", ""),
+                location_hindi=s.get("location_hindi", ""),
+                action_hindi=s.get("action_hindi", ""),
+                dialogue_hindi=dial_h,
+                video_prompt=norm_p,
+                narration=s.get("narration", dial_h),
+                image_prompt=_normalize_scene_prompt(s.get("image_prompt", s.get("video_prompt", ""))),
+                duration_s=dur_s,
+                motion=s.get("motion", "zoom_in"),
+                caption=s.get("caption", s.get("title_hindi", "")),
+                has_native_audio=True,
+                status="pending",
+                prompt_hash=p_hash,
+            )
         )
-        for i, s in enumerate(raw_scenes)
-    ]
 
     spine.stage(STAGE).provider_used = provider
     log.info(

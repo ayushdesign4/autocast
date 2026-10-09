@@ -219,6 +219,9 @@ def _upload_thumbnail(thumbnail_path: Path, video_id: str, access_token: str) ->
     return False
 
 
+MIN_UPLOAD_DURATION_S = 60.0
+
+
 def run(spine: Run, cfg: Config, *, dry_run: bool = False) -> Run:
     if spine.topic is None or spine.video is None:
         raise ValueError("upload stage: needs spine.topic and spine.video")
@@ -262,6 +265,35 @@ def run(spine: Run, cfg: Config, *, dry_run: bool = False) -> Run:
             "rendered locally, publishing skipped. Run 'uv run python -m autocast.util.youtube_auth' to authenticate."
         )
 
+    # Fast metadata check: if spine.video.duration_s is recorded and < MIN_UPLOAD_DURATION_S, reject early
+    if spine.video.duration_s and spine.video.duration_s < MIN_UPLOAD_DURATION_S:
+        raise RuntimeError(
+            f"upload: actual video duration ({spine.video.duration_s:.1f}s) is below safety threshold ({MIN_UPLOAD_DURATION_S}s). "
+            f"Target length is 60-90s. Refusing to upload incomplete or truncated video."
+        )
+
+    # Actual MP4 duration guard: probe the actual encoded MP4 on disk using ffprobe
+    video_path = cfg.run_dir(spine.run_id) / spine.video.final_path
+    if not video_path.exists():
+        raise FileNotFoundError(f"upload: video file not found at {video_path}")
+
+    try:
+        from autocast.ffmpeg.run import probe_duration
+        actual_duration = probe_duration(video_path)
+    except Exception as exc:
+        raise RuntimeError(f"upload: duration probe failed on {video_path}: {exc}") from exc
+
+    if actual_duration is None or actual_duration <= 0.0:
+        raise RuntimeError(
+            f"upload: duration probe returned invalid duration ({actual_duration}) for {video_path}"
+        )
+
+    if actual_duration < MIN_UPLOAD_DURATION_S:
+        raise RuntimeError(
+            f"upload: actual video duration ({actual_duration:.1f}s) is below safety threshold ({MIN_UPLOAD_DURATION_S}s). "
+            f"Target length is 60-90s. Refusing to upload incomplete or truncated video."
+        )
+
     # Obtain valid short-lived access token from refresh token
     access_token = get_access_token(
         cfg.yt_client_id,
@@ -270,7 +302,6 @@ def run(spine: Run, cfg: Config, *, dry_run: bool = False) -> Run:
         dry_run=False,
     )
 
-    video_path = cfg.run_dir(spine.run_id) / spine.video.final_path
     video_id = _upload_video_resumable(
         video_path=video_path,
         title=title,

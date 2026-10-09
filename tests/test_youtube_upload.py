@@ -64,9 +64,24 @@ def test_upload_without_creds_raises_stage_skipped(tmp_path):
     cfg = Config(runs_dir=tmp_path, yt_client_id=None, yt_client_secret=None, yt_refresh_token=None)
     run = Run.new("2026-10-04")
     run.topic = Topic(title="1990s Mango Summer")
-    run.video = Video(final_path="video.mp4")
+    run.video = Video(final_path="video.mp4", duration_s=65.0)
 
     with pytest.raises(StageSkipped, match="no YouTube credentials"):
+        upload.run(run, cfg, dry_run=False)
+
+
+def test_upload_below_min_duration_fails_safely(tmp_path):
+    cfg = Config(
+        runs_dir=tmp_path,
+        yt_client_id="test_cid",
+        yt_client_secret="test_sec",
+        yt_refresh_token="test_ref",
+    )
+    run = Run.new("2026-10-04")
+    run.topic = Topic(title="Short Incomplete Video")
+    run.video = Video(final_path="video.mp4", duration_s=15.12)
+
+    with pytest.raises(RuntimeError, match="below safety threshold"):
         upload.run(run, cfg, dry_run=False)
 
 
@@ -90,7 +105,7 @@ def test_upload_real_resumable_and_thumbnail(tmp_path):
     run = Run.new("2026-10-04")
     run.topic = Topic(title="आख़िरी आम की गर्मी")
     run.script = Script(full_text="गांव की दोपहर में चीकू दौड़ा।")
-    run.video = Video(final_path="video.mp4")
+    run.video = Video(final_path="video.mp4", duration_s=65.0)
     run.thumbnail = Thumbnail(path="assets/thumb.jpg", width=1280, height=720)
 
     # Mock token refresh
@@ -122,7 +137,7 @@ def test_upload_real_resumable_and_thumbnail(tmp_path):
             return mock_upload_resp
         raise ValueError(f"Unexpected put url: {url}")
 
-    with patch("httpx.post", side_effect=mock_post), patch("httpx.put", side_effect=mock_put):
+    with patch("httpx.post", side_effect=mock_post), patch("httpx.put", side_effect=mock_put), patch("autocast.ffmpeg.run.probe_duration", return_value=65.0):
         out_run = upload.run(run, cfg, dry_run=False)
 
     assert out_run.upload.youtube_video_id == "TEST_YT_VIDEO_ID_999"

@@ -25,11 +25,20 @@ log = logging.getLogger("autocast.stages.topic")
 
 STAGE = "topic"
 
-# Google Trends RSS (US daily). Keyless. TODO(real): make geo configurable via cfg.
-_TRENDS_RSS = "https://trends.google.com/trending/rss?geo=US"
+# Google Trends RSS (India daily). Keyless.
+_TRENDS_RSS = "https://trends.google.com/trending/rss?geo=IN"
 
-# Evergreen seed topics live in autocast.seeds (each has a bespoke script + shot
-# list). They rotate by date so a keyless channel ships a different seed daily.
+# Grounded Indian nostalgia categories to ensure wide thematic variety
+_DIVERSE_NOSTALGIA_THEMES = (
+    "School life: morning assembly, ink pens, wooden ruler, brown paper notebook covers, lunch box sharing, report card day",
+    "Railway journeys: window seat breeze, chai in clay kulhad, passing green fields, train whistle, station vendors",
+    "Cassette tapes: rewinding spool with Natraj pencil, recording favorite radio songs, Murphy radio, rooftop antenna adjustment",
+    "Monsoon memories: paper boats floating in rainwater drain, mud cricket with wooden plank, hot pakoras and tea during sudden downpour",
+    "Village & family: Nani's mango pickle jars drying on terrace, sleeping under stars on charpai with mosquito net, summer afternoon games",
+    "Street food & childhood treats: 50-paise orange ice lolly chuski, pink cotton candy, roasted bhutta with lemon masala, roadside hot samosas",
+    "Evening games: gilli-danda in dusty lane, pitthu seven stones, hopscotch stapu, hide and seek chupan-chupai until streetlights turn on",
+    "Sunday television: waiting for morning cartoons, Jungle Book title song, empty streets during Sunday serial, Rangoli and Chitrahaar songs",
+)
 
 
 def _read_queue(cfg: Config) -> list[str]:
@@ -44,6 +53,71 @@ def _read_queue(cfg: Config) -> list[str]:
     except (json.JSONDecodeError, OSError) as exc:
         log.warning("topic: could not read queue %s: %s", path, exc)
         return []
+
+
+def _get_recent_titles(manifest_path: Path, max_days: int = 30) -> list[str]:
+    """Read prior titles from manifest.json within the last max_days."""
+    if not manifest_path.exists():
+        return []
+    try:
+        data = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if not isinstance(data, list):
+            return []
+        recent: list[str] = []
+        for entry in data:
+            if isinstance(entry, dict):
+                title = str(entry.get("title", "")).strip()
+                if title and title not in recent:
+                    recent.append(title)
+        return recent[:max_days]
+    except Exception as exc:  # noqa: BLE001
+        log.warning("topic: could not read recent manifest titles (%s)", exc)
+        return []
+
+
+def _normalize_tokens(title: str) -> set[str]:
+    """Extract clean lowercase keyword tokens for overlap comparison."""
+    import re
+    import unicodedata
+    norm_text = unicodedata.normalize("NFKC", title).lower()
+    cleaned = re.sub(r'[.,!?:;।॥"\'\-–—/\\()\[\]{}]', " ", norm_text)
+    stop = {"और", "का", "की", "के", "में", "से", "पर", "एक", "था", "थी", "the", "a", "an", "and", "of", "in", "to", "with"}
+    return {w.strip() for w in cleaned.split() if len(w.strip()) > 1 and w.strip() not in stop}
+
+
+def _is_duplicate_or_too_similar(candidate: str, recent_titles: list[str], threshold: float = 0.45) -> bool:
+    """Check if candidate is an exact match or shares significant word overlap with recent titles."""
+    import unicodedata
+    cand_norm = unicodedata.normalize("NFKC", candidate).strip().lower()
+    cand_tokens = _normalize_tokens(candidate)
+    if not cand_tokens:
+        return False
+
+    for recent in recent_titles:
+        rec_norm = unicodedata.normalize("NFKC", recent).strip().lower()
+        if cand_norm == rec_norm or candidate == recent:
+            return True
+        rec_tokens = _normalize_tokens(recent)
+        if not rec_tokens:
+            continue
+        intersection = cand_tokens & rec_tokens
+        union = cand_tokens | rec_tokens
+        sim = len(intersection) / len(union) if union else 0.0
+        if sim >= threshold or len(intersection) >= 3 or (len(intersection) >= 2 and sim >= 0.35):
+            return True
+    return False
+
+
+_NOSTALGIA_BACKUP_TITLES = (
+    "स्कूल की घंटी, स्याही की दवात और खट्टी इमली",
+    "रेलगाड़ी की खिड़की, कुल्हड़ वाली चाय और सुहाना सफ़र",
+    "नटराज की पेंसिल, कैसेट का रीवाइंड और विविध भारती",
+    "बारिश का पहला दिन, कागज़ की नाव और गरम पकोड़े",
+    "छत पर चारपाई, नानी का पंखा और तारों भरी रात",
+    "रंग-बिरंगी फ़िरकी, पचास पैसे की चुस्की और बचपन का मेला",
+    "गली का क्रिकेट, लकड़ी का फट्टा और खोई हुई गेंद",
+    "रविवार की सुबह, शक्तिमान और रंगोली के गाने",
+)
 
 
 def _fetch_trends_titles() -> list[str]:
@@ -62,14 +136,7 @@ def _fetch_trends_titles() -> list[str]:
 
 
 def _select_candidates(cfg: Config, run_id: str, dry_run: bool) -> tuple[list[str], str]:
-    """Return (candidate signals, source label) by the selection priority.
-
-    Seeds are date-rotated so today's pick is first — a keyless run that falls to
-    `candidates[0]` then lands on a different evergreen topic each day.
-
-    Trending terms are raw search phrases (names, products) — not video topics —
-    so we append the evergreen seeds as anchors and let the LLM craft a real title.
-    """
+    """Return (candidate signals, source label) by the selection priority."""
     queued = _read_queue(cfg)
     if queued:
         return queued, "human-queue"
@@ -77,18 +144,29 @@ def _select_candidates(cfg: Config, run_id: str, dry_run: bool) -> tuple[list[st
     if dry_run:
         return seeds, "static-seed"
     trends = _fetch_trends_titles()
+    extra_anchors = list(_DIVERSE_NOSTALGIA_THEMES) + seeds
     if trends:
-        return trends + seeds, "google-trends-rss"
-    return seeds, "static-seed"
+        return trends + extra_anchors, "google-trends-rss"
+    return extra_anchors, "nostalgia-themes"
 
 
-def _craft_prompt(candidates: list[str]) -> str:
+def _craft_prompt(candidates: list[str], recent_titles: list[str] | None = None) -> str:
+    negative_instruction = ""
+    if recent_titles:
+        sample = [f"- {t}" for t in recent_titles[:15]]
+        negative_instruction = (
+            "\nCRITICAL: Do NOT reuse, repeat, or closely copy any of these recently published topics:\n"
+            + "\n".join(sample)
+            + "\n"
+        )
+
     return (
         "You curate a YouTube channel of emotional, family-friendly short animated stories "
-        "celebrating 1990s Indian nostalgia and everyday childhood memories (such as Nani/Dadi house, "
-        "summer vacations, village childhood, mangoes, Doordarshan, cassette player, monsoon paper boats, "
-        "power cuts, rooftop sleeping on charpai, kite flying, railway journey, village fair).\n"
-        "From the trending signals and ideas below, produce ONE compelling, nostalgic story title "
+        "celebrating 1990s Indian nostalgia and everyday childhood memories across diverse settings "
+        "(such as school days, railway journeys, cassette tapes, monsoon cricket, village festivals, street food, "
+        "Sunday morning TV, Nani/Dadi house, power cuts, rooftop sleeping on charpai).\n"
+        f"{negative_instruction}\n"
+        "From the trending signals and ideas below, produce ONE compelling, novel, nostalgic story title "
         "(in Hindi or Hindi-English, max 70 chars).\n"
         "Return ONLY the title text — no quotes, no numbering, no explanation.\n\n"
         "Signals:\n" + "\n".join(f"- {c}" for c in candidates)
@@ -106,9 +184,11 @@ def _clean_title(text: str) -> str:
 
 def run(spine: Run, cfg: Config, *, dry_run: bool = False) -> Run:
     candidates, source = _select_candidates(cfg, spine.run_id, dry_run)
+    recent_titles = _get_recent_titles(cfg.manifest_path(), max_days=30)
 
+    prompt = _craft_prompt(candidates, recent_titles=recent_titles)
     providers = build_llm_providers(
-        cfg, prompt=_craft_prompt(candidates), kind="topic-rank", dry_run=dry_run
+        cfg, prompt=prompt, kind="topic-rank", dry_run=dry_run
     )
     llm_text, provider = try_llm(providers)
 
@@ -116,15 +196,36 @@ def run(spine: Run, cfg: Config, *, dry_run: bool = False) -> Run:
     if source == "human-queue" or dry_run:
         chosen = candidates[0]
     elif llm_text:
-        # LLM crafts a real title from the raw signals (names/products aren't topics).
-        # If the LLM returns nothing usable, fall to the day's rotated seed.
-        chosen = _clean_title(llm_text) or rotated_seed_titles(spine.run_id)[0]
+        chosen = _clean_title(llm_text)
+        if not chosen or _is_duplicate_or_too_similar(chosen, recent_titles):
+            log.warning("topic: candidate %r is empty or too similar to recent run; choosing fresh seed alternative", chosen)
+            # Find first seed that is not a recent duplicate
+            chosen = ""
+            for seed_cand in rotated_seed_titles(spine.run_id):
+                if not _is_duplicate_or_too_similar(seed_cand, recent_titles):
+                    chosen = seed_cand
+                    break
+            if not chosen:
+                for backup_cand in _NOSTALGIA_BACKUP_TITLES:
+                    if not _is_duplicate_or_too_similar(backup_cand, recent_titles):
+                        chosen = backup_cand
+                        break
+            if not chosen:
+                chosen = rotated_seed_titles(spine.run_id)[0]
     else:
-        # LLM is down: a raw trend term ("visa bulletin") won't cohere with the
-        # deterministic template script/shots downstream, but the day's evergreen
-        # seed WILL — its bespoke script + shots are written around it. Degrade to
-        # a coherent whole (and rotate, so it's not the same seed every day).
-        chosen = rotated_seed_titles(spine.run_id)[0]
+        # LLM down: find a non-duplicate rotated seed
+        chosen = ""
+        for seed_cand in rotated_seed_titles(spine.run_id):
+            if not _is_duplicate_or_too_similar(seed_cand, recent_titles):
+                chosen = seed_cand
+                break
+        if not chosen:
+            for backup_cand in _NOSTALGIA_BACKUP_TITLES:
+                if not _is_duplicate_or_too_similar(backup_cand, recent_titles):
+                    chosen = backup_cand
+                    break
+        if not chosen:
+            chosen = rotated_seed_titles(spine.run_id)[0]
 
     spine.topic = Topic(
         title=chosen,

@@ -34,7 +34,8 @@ _DEFAULT_AGNES_CHAT_MODEL = "agnes-3.0-flash"
 
 # ---- Other keyed OpenAI-compatible endpoints ----
 _GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-_GROQ_MODEL = "llama-3.3-70b-versatile"
+_GROQ_MODELS = ("llama-3.3-70b-versatile", "llama-3.1-8b-instant")
+_DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile"
 _CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
 _CEREBRAS_MODEL = "llama-3.3-70b"
 _CLOUDFLARE_URL = (
@@ -61,6 +62,7 @@ def _call_openai_compat(
     api_key: str | None = None,
     temperature: float = 0.7,
     extra_body: dict | None = None,
+    timeout: float = 25.0,
 ) -> str:
     """One OpenAI-compatible chat call. Every keyed LLM provider is this shape with
     a different base_url/model/key — so the cascade is just bindings of this fn."""
@@ -76,7 +78,7 @@ def _call_openai_compat(
         base_url,
         body,
         headers=headers,
-        timeout=25.0,
+        timeout=timeout,
         retries=1,
         backoff_s=0.0,
     )
@@ -92,6 +94,7 @@ def _call_gemini(
     *,
     model: str | None = None,
     temperature: float = 0.7,
+    timeout: float = 25.0,
 ) -> str:
     """Execute Gemini chat completion via native google-genai SDK, falling back to HTTP."""
     target_model = model or _DEFAULT_GEMINI_MODEL
@@ -101,7 +104,12 @@ def _call_gemini(
         from google import genai
         from google.genai import types
 
-        client = genai.Client(api_key=api_key)
+        client_opts = {}
+        try:
+            client_opts["http_options"] = types.HttpOptions(timeout=int(timeout * 1000))
+        except Exception:
+            pass
+        client = genai.Client(api_key=api_key, **client_opts)
         config = types.GenerateContentConfig(temperature=temperature)
         resp = client.models.generate_content(
             model=target_model,
@@ -124,6 +132,7 @@ def _call_gemini(
                 prompt,
                 api_key=api_key,
                 temperature=temperature,
+                timeout=timeout,
             )
         except Exception as exc:
             last_err = exc
@@ -139,6 +148,7 @@ def _call_agnes(
     *,
     model: str | None = None,
     temperature: float = 0.7,
+    timeout: float = 25.0,
 ) -> str:
     """Execute chat completion via Agnes OpenAI-compatible endpoint."""
     chat_url = f"{base_url.rstrip('/')}/v1/chat/completions"
@@ -153,6 +163,7 @@ def _call_agnes(
                 prompt,
                 api_key=api_key,
                 temperature=temperature,
+                timeout=timeout,
             )
         except Exception as exc:
             last_err = exc
@@ -161,17 +172,55 @@ def _call_agnes(
     raise RuntimeError(f"All Agnes chat models failed: {last_err}")
 
 
+def _call_groq(
+    api_key: str,
+    prompt: str,
+    *,
+    temperature: float = 0.7,
+    timeout: float = 25.0,
+) -> str:
+    """Execute Groq chat completion trying supported open models."""
+    last_err: Exception | None = None
+    for m in _GROQ_MODELS:
+        try:
+            return _call_openai_compat(
+                _GROQ_URL,
+                m,
+                prompt,
+                api_key=api_key,
+                temperature=temperature,
+                timeout=timeout,
+            )
+        except Exception as exc:
+            last_err = exc
+            log.warning("llm[groq]: model %s failed: %s", m, exc)
+    raise RuntimeError(f"All Groq models failed: {last_err}")
+
+
 def _keyed_provider(
-    name: str, base_url: str, model: str, api_key: str, prompt: str
+    name: str,
+    base_url: str,
+    model: str,
+    api_key: str,
+    prompt: str,
+    *,
+    timeout: float = 25.0,
 ) -> Provider[str]:
     """Bind one keyed OpenAI-compatible provider for the cascade."""
-    return Provider(name, lambda: _call_openai_compat(base_url, model, prompt, api_key=api_key))
+    return Provider(
+        name,
+        lambda: _call_openai_compat(base_url, model, prompt, api_key=api_key, timeout=timeout),
+    )
 
 
-def _pollinations_openai(prompt: str, kind: str) -> str:
+def _pollinations_openai(prompt: str, kind: str, *, timeout: float = 25.0) -> str:
     log.info("llm[%s]: calling pollinations-openai (keyless, POST)", kind)
     return _call_openai_compat(
-        _POLLINATIONS_OPENAI, _POLLINATIONS_MODEL, prompt, extra_body={"referrer": _REFERRER}
+        _POLLINATIONS_OPENAI,
+        _POLLINATIONS_MODEL,
+        prompt,
+        extra_body={"referrer": _REFERRER},
+        timeout=timeout,
     )
 
 
@@ -182,6 +231,7 @@ def build_llm_providers(
     kind: str,
     allow_cerebras: bool = True,
     dry_run: bool = False,
+    timeout: float | None = None,
 ) -> list[Provider[str]]:
     """Return the ordered LLM providers for the cascade.
 
@@ -195,6 +245,16 @@ def build_llm_providers(
     if dry_run:
         return [Provider("dry-stub", lambda: _dry_stub(prompt, kind))]
 
+    # Stage-specific default timeouts if not explicitly specified
+    if timeout is not None:
+        eff_timeout = float(timeout)
+    elif kind == "direction":
+        eff_timeout = 120.0
+    elif kind == "script":
+        eff_timeout = 60.0
+    else:
+        eff_timeout = 25.0
+
     providers: list[Provider[str]] = []
 
     # 1. Gemini (primary keyed LLM)
@@ -203,7 +263,9 @@ def build_llm_providers(
         providers.append(
             Provider(
                 "gemini",
-                lambda: _call_gemini(cfg.gemini_api_key, prompt, model=gemini_model),
+                lambda: _call_gemini(
+                    cfg.gemini_api_key, prompt, model=gemini_model, timeout=eff_timeout
+                ),
             )
         )
 
@@ -213,14 +275,19 @@ def build_llm_providers(
         providers.append(
             Provider(
                 "agnes",
-                lambda: _call_agnes(cfg.agnes_api_key, agnes_base, prompt),
+                lambda: _call_agnes(
+                    cfg.agnes_api_key, agnes_base, prompt, timeout=eff_timeout
+                ),
             )
         )
 
     # 3. Groq (fast keyed fallback)
     if cfg.groq_api_key:
         providers.append(
-            _keyed_provider("groq", _GROQ_URL, _GROQ_MODEL, cfg.groq_api_key, prompt)
+            Provider(
+                "groq",
+                lambda: _call_groq(cfg.groq_api_key, prompt, timeout=eff_timeout),
+            )
         )
 
     # 4. Cloudflare Workers AI (budget-gated)
@@ -236,6 +303,7 @@ def build_llm_providers(
                 _CLOUDFLARE_MODEL,
                 cfg.cloudflare_api_token,
                 prompt,
+                timeout=eff_timeout,
             )
         )
 
@@ -243,12 +311,23 @@ def build_llm_providers(
     if allow_cerebras and cfg.cerebras_api_key:
         providers.append(
             _keyed_provider(
-                "cerebras", _CEREBRAS_URL, _CEREBRAS_MODEL, cfg.cerebras_api_key, prompt
+                "cerebras",
+                _CEREBRAS_URL,
+                _CEREBRAS_MODEL,
+                cfg.cerebras_api_key,
+                prompt,
+                timeout=eff_timeout,
             )
         )
 
-    # 6. Keyless last-resort fallback before template
-    providers.append(Provider("pollinations-openai", lambda: _pollinations_openai(prompt, kind)))
+    # 6. Keyless last-resort fallback before template (pollinations capped at 30s)
+    poll_timeout = min(eff_timeout, 30.0)
+    providers.append(
+        Provider(
+            "pollinations-openai",
+            lambda: _pollinations_openai(prompt, kind, timeout=poll_timeout),
+        )
+    )
     return providers
 
 

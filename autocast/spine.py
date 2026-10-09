@@ -141,6 +141,7 @@ class Scene(_Model):
     frame_path: str | None = None
     has_native_audio: bool = True
     status: str = "pending"  # pending | completed | failed
+    prompt_hash: str | None = None
 
 
 class Shot(_Model):
@@ -168,6 +169,7 @@ class Shot(_Model):
     video_prompt: str | None = None
     has_native_audio: bool = True
     status: str = "pending"
+    prompt_hash: str | None = None
 
 
 class Audio(_Model):
