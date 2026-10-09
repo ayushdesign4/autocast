@@ -1,0 +1,310 @@
+{
+  "run_id": "2026-10-09",
+  "schema_version": 1,
+  "created_at": "2026-10-09T09:28:48.225244+00:00",
+  "config_snapshot": {
+    "voice": "af_heart",
+    "aspect": "1920x1080",
+    "target_len_s": 90
+  },
+  "topic": {
+    "title": "गाँव का मेला, लकड़ी की फ़िरकी और दादी की खिचड़ी",
+    "source": "google-trends-rss",
+    "rank_score": 0.8,
+    "provider": "agnes"
+  },
+  "script": {
+    "full_text": "गाँव के मेलों में हर सन्नाटा एक कहानी की तरह होता था। नौसठियों के जुग में, जब आसमान में तारे अपने आप चमकते थे और बत्तियों की रोशनी की जगह तेल के दीयों की नरमी थी, तब का दामलीन और मेरा रिश्ता उस बगICHE के आम के पेड़ के नीचे की छाया जैसा था। हमारे नाना का कोटरा हमारा दुनिया था, जहाँ मधुशर का फ़िफ़रिया जूता और एक पुरानी कसेट प्लेयर की डन डन से पूरा घर गूंज जाता था। एक दिन, नानी की खिचडी बनने के दौरान हम दोनों छत पर चारपाई पर बैठे थे। नीचे आते-जाते हवा में गीला मिट्टी की सिरनी खुशबू थी। नानी, जो कि रसोई घर की देवी थी, ने एक कपड़ा बिछाकर खिचडी की भाप वाली पती बनाई। \"बेटे, इस पती में नाना के हाथों की मेहनत है,\" नानी ने कहा, जैसे हमें एक अनूठा रहस्य बता रही हों। हमने उस पती को खाते हुए एक-दूसरे की ख़ुशी देखी। उस रोज़, जब बिजली गुल हुई थी, हमने तेल के दीयों के आलोक में मल्गी की चॉकलेट का टुकड़ा बटोरा। अब वक़त बदला है, हम शहरों में रहते हैं, लेकिन हृदय वही दामलीन है। आज भी जब मैं नानी की खिचडी का स्वाद याद करता हूँ, तो वह मधुशर की ख़ुशबू, डन डन की धुन और छत के तारे मेरी आँखों के सामने आ जाते हैं। शायद असली दौलत वो ही है, जो समय के साथ खो जाती है, लेकिन ख़ुद को हमेशा से ज़िंदा महसूस करती है।",
+    "word_count": 243,
+    "provider": "agnes"
+  },
+  "character_bible": {
+    "characters": [
+      {
+        "name": "Aarav",
+        "age": "9 years old",
+        "gender": "male",
+        "height": "4 feet 2 inches",
+        "body_type": "lean energetic child",
+        "skin_tone": "warm wheatish brown",
+        "face_shape": "round innocent face",
+        "eyes": "large expressive dark brown sparkling eyes",
+        "hair": "messy jet black hair",
+        "hairstyle": "short uncombed childhood crop with playful cowlick",
+        "clothing": "faded yellow cotton half-sleeve t-shirt and loose navy blue shorts",
+        "footwear": "dusty brown rubber flip-flops",
+        "accessories": "thin black thread around right wrist",
+        "unique_facial_features": "tiny beauty mark on left cheek, bright grin",
+        "personality": "adventurous, curious, sweet-hearted",
+        "typical_expressions": "wide-eyed wonder, suppressed giggles",
+        "body_language": "restless, bouncy gait, hands on knees"
+      },
+      {
+        "name": "Dadi",
+        "age": "68 years old",
+        "gender": "female",
+        "height": "5 feet 0 inches",
+        "body_type": "gentle elderly grandmother",
+        "skin_tone": "warm dusky with soft laugh wrinkles",
+        "face_shape": "oval kind grandmotherly face",
+        "eyes": "warm crinkled honey-brown eyes",
+        "hair": "pure silvery white hair",
+        "hairstyle": "neat low traditional bun",
+        "clothing": "white handwoven cotton saree with red border",
+        "footwear": "simple brown leather slippers",
+        "accessories": "silver bangles, small red bindi, wire-rim glasses",
+        "unique_facial_features": "deep crinkles around eyes, loving smile",
+        "personality": "patient, deeply nurturing matriarch",
+        "typical_expressions": "soft maternal warmth",
+        "body_language": "slow rhythmic hand movements with palm leaf fan"
+      }
+    ]
+  },
+  "scenes": [
+    {
+      "scene_number": 1,
+      "title_hindi": "गाँव का मेला, लकड़ी की फ़िरकी और दादी की खिचड़ी की शुरुआत",
+      "characters_hindi": "छोटा बालक और नानी",
+      "location_hindi": "गाँव का आँगन",
+      "action_hindi": "धूप में आँगन में बैठना और पुरानी यादें ताज़ा करना",
+      "dialogue_hindi": "नानी, वो बचपन के दिन कितने प्यारे थे ना!",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Rustic Indian village courtyard. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.0,
+      "clip_path": "assets/scene_001.mp4",
+      "frame_path": "assets/scene_001.png",
+      "has_native_audio": true,
+      "status": "completed"
+    },
+    {
+      "scene_number": 2,
+      "title_hindi": "दोपहर की खेलकूद",
+      "characters_hindi": "बच्चे",
+      "location_hindi": "गाँव की कच्ची सड़क",
+      "action_hindi": "बच्चे मिलकर कंचे और लट्टू खेल रहे हैं",
+      "dialogue_hindi": "देखना, इस बार मेरा कंचा सीधा निशाने पर लगेगा!",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Indian children playing with marbles. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.0,
+      "clip_path": "assets/scene_002.mp4",
+      "frame_path": "assets/scene_002.png",
+      "has_native_audio": true,
+      "status": "completed"
+    },
+    {
+      "scene_number": 3,
+      "title_hindi": "शाम का सुकून",
+      "characters_hindi": "परिवार",
+      "location_hindi": "घर की खुली छत",
+      "action_hindi": "छत पर बैठकर ठंडी हवा में चाय पीना और तारों को देखना",
+      "dialogue_hindi": "काश वो दिन कभी ख़त्म ही न होते।",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Rooftop terrace at twilight. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.5,
+      "clip_path": "assets/scene_003.mp4",
+      "frame_path": "assets/scene_003.png",
+      "has_native_audio": true,
+      "status": "completed"
+    }
+  ],
+  "shots": [
+    {
+      "idx": 0,
+      "narration": "गाँव का मेला, लकड़ी की फ़िरकी और दादी की खिचड़ी। 1990 का वो दौर जब छोटी-छोटी खुशियों में पूरी ज़िंदगी बसती थी।",
+      "image_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Rustic Indian village courtyard. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.0,
+      "motion": "zoom_in",
+      "caption": "बचपन की यादें",
+      "image_path": "assets/scene_001.png",
+      "clip_path": "assets/scene_001.mp4",
+      "audio_start_s": 0.0,
+      "audio_end_s": 6.0,
+      "scene_number": 1,
+      "title_hindi": "गाँव का मेला, लकड़ी की फ़िरकी और दादी की खिचड़ी की शुरुआत",
+      "characters_hindi": "छोटा बालक और नानी",
+      "location_hindi": "गाँव का आँगन",
+      "action_hindi": "धूप में आँगन में बैठना और पुरानी यादें ताज़ा करना",
+      "dialogue_hindi": "नानी, वो बचपन के दिन कितने प्यारे थे ना!",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Rustic Indian village courtyard. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "has_native_audio": true,
+      "status": "completed"
+    },
+    {
+      "idx": 1,
+      "narration": "कंचे, लट्टू और कागज़ की नावों में खोया वो मासूम सा बचपन।",
+      "image_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Indian children playing with marbles. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.0,
+      "motion": "pan_right",
+      "caption": "मासूम खेल",
+      "image_path": "assets/scene_002.png",
+      "clip_path": "assets/scene_002.mp4",
+      "audio_start_s": 6.0,
+      "audio_end_s": 12.0,
+      "scene_number": 2,
+      "title_hindi": "दोपहर की खेलकूद",
+      "characters_hindi": "बच्चे",
+      "location_hindi": "गाँव की कच्ची सड़क",
+      "action_hindi": "बच्चे मिलकर कंचे और लट्टू खेल रहे हैं",
+      "dialogue_hindi": "देखना, इस बार मेरा कंचा सीधा निशाने पर लगेगा!",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Indian children playing with marbles. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "has_native_audio": true,
+      "status": "completed"
+    },
+    {
+      "idx": 2,
+      "narration": "आज भी जब वो दिन याद आते हैं, तो आँखें नम और होंठ मुस्कुरा उठते हैं।",
+      "image_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Rooftop terrace at twilight. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "duration_s": 6.5,
+      "motion": "zoom_out",
+      "caption": "सदाबहार यादें",
+      "image_path": "assets/scene_003.png",
+      "clip_path": "assets/scene_003.mp4",
+      "audio_start_s": 12.0,
+      "audio_end_s": 18.5,
+      "scene_number": 3,
+      "title_hindi": "शाम का सुकून",
+      "characters_hindi": "परिवार",
+      "location_hindi": "घर की खुली छत",
+      "action_hindi": "छत पर बैठकर ठंडी हवा में चाय पीना और तारों को देखना",
+      "dialogue_hindi": "काश वो दिन कभी ख़त्म ही न होते।",
+      "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Rooftop terrace at twilight. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
+      "has_native_audio": true,
+      "status": "completed"
+    }
+  ],
+  "audio": {
+    "voice_path": "assets/voice.wav",
+    "duration_s": 18.5,
+    "word_timings_path": null,
+    "provider": "native-video-audio"
+  },
+  "assets": {
+    "music_path": "assets/music.wav",
+    "music_source": "synth-ambient-cc0",
+    "captions_path": "assets/captions.ass",
+    "stock_paths": [],
+    "license_manifest": [
+      {
+        "asset": "music.wav",
+        "license": "CC0-1.0",
+        "attribution": false
+      }
+    ]
+  },
+  "video": {
+    "final_path": "assets/final.mp4",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "duration_s": 15.12,
+    "size_bytes": 12240173
+  },
+  "thumbnail": {
+    "path": "assets/thumb.jpg",
+    "width": 1280,
+    "height": 720
+  },
+  "upload": {
+    "title": "गाँव का मेला, लकड़ी की फ़िरकी और दादी की खिचड़ी",
+    "description": "गाँव का मेला, लकड़ी की फ़िरकी और दादी की खिचड़ी\n\nगाँव के मेलों में हर सन्नाटा एक कहानी की तरह होता था। नौसठियों के जुग में, जब आसमान में तारे अपने आप चमकते थे और बत्तियों की रोशनी की जगह तेल के दीयों की नरमी थी, तब का दामलीन और मेरा रिश्ता उस बगICHE के आम के पेड़ के नीचे की छाया जैसा था। हमारे नाना का कोटरा हमारा दुनिया था, जहाँ मधुशर का फ़िफ़रिया जूता और एक पुरानी कसेट प्लेयर की डन डन से पूरा घर गूंज जाता था। एक दिन, नानी की खिचडी बनने के दौरान\n\n#90sIndia #Nostalgia #HindiStories #Animation #VillageLife #AutoCast\n\n\n\n---\nThis video features AI-generated 1990s nostalgic animation, dialogue, and music.\nCreated autonomously by AutoCast.",
+    "tags": [
+      "गाँव",
+      "मेला",
+      "लकड़ी",
+      "फ़िरकी",
+      "90s India",
+      "nostalgia",
+      "1990s Indian village",
+      "Hindi animation",
+      "Indian childhood",
+      "Chiku",
+      "mango summer",
+      "village story",
+      "nostalgic memories"
+    ],
+    "privacy": "private",
+    "ai_disclosure": true,
+    "youtube_video_id": "Nv_BHhIsuKA",
+    "uploaded_at": "2026-10-09T09:37:33.948330+00:00"
+  },
+  "stages": [
+    {
+      "name": "topic",
+      "status": "completed",
+      "provider_used": "agnes",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-09T09:28:48.225588+00:00",
+      "ended_at": "2026-10-09T09:28:50.775422+00:00"
+    },
+    {
+      "name": "script",
+      "status": "completed",
+      "provider_used": "agnes",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-09T09:28:50.776123+00:00",
+      "ended_at": "2026-10-09T09:28:58.468301+00:00"
+    },
+    {
+      "name": "direction",
+      "status": "completed",
+      "provider_used": "template-fallback",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-09T09:28:58.469004+00:00",
+      "ended_at": "2026-10-09T09:30:39.067743+00:00"
+    },
+    {
+      "name": "images",
+      "status": "completed",
+      "provider_used": "agnes-video",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-09T09:30:39.068925+00:00",
+      "ended_at": "2026-10-09T09:37:09.612597+00:00"
+    },
+    {
+      "name": "tts",
+      "status": "completed",
+      "provider_used": "native-video-audio",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-09T09:37:09.613318+00:00",
+      "ended_at": "2026-10-09T09:37:09.614190+00:00"
+    },
+    {
+      "name": "assets",
+      "status": "completed",
+      "provider_used": null,
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-09T09:37:09.614865+00:00",
+      "ended_at": "2026-10-09T09:37:09.827147+00:00"
+    },
+    {
+      "name": "video",
+      "status": "completed",
+      "provider_used": null,
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-09T09:37:09.828000+00:00",
+      "ended_at": "2026-10-09T09:37:28.656096+00:00"
+    },
+    {
+      "name": "thumbnail",
+      "status": "completed",
+      "provider_used": null,
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-09T09:37:28.657114+00:00",
+      "ended_at": "2026-10-09T09:37:28.934437+00:00"
+    },
+    {
+      "name": "upload",
+      "status": "completed",
+      "provider_used": "youtube-data-api-v3",
+      "attempts": 1,
+      "error": null,
+      "started_at": "2026-10-09T09:37:28.935324+00:00",
+      "ended_at": "2026-10-09T09:37:35.900082+00:00"
+    }
+  ]
+}
