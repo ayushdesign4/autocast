@@ -1,0 +1,22 @@
+{"ts": "2026-10-09T15:25:20.222462+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "=== AutoCast run 2026-10-09-37951522619 (dry_run=False) ==="}
+{"ts": "2026-10-09T15:25:20.222740+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "orchestrator: new run 2026-10-09-37951522619"}
+{"ts": "2026-10-09T15:25:20.659740+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: trying agnes (attempt 1)"}
+{"ts": "2026-10-09T15:25:21.844989+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: agnes succeeded"}
+{"ts": "2026-10-09T15:25:21.850790+00:00", "level": "INFO", "logger": "autocast.stages.topic", "msg": "topic: chose 'कैमिकल पेंसिल, पुराना स्कूल बैग और वही रिपोर्ट कार्ड का दिन' (source=google-trends-rss) via agnes"}
+{"ts": "2026-10-09T15:25:21.851412+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage topic: completed"}
+{"ts": "2026-10-09T15:25:21.852033+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: trying agnes (attempt 1)"}
+{"ts": "2026-10-09T15:25:32.606573+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: agnes succeeded"}
+{"ts": "2026-10-09T15:25:32.606998+00:00", "level": "INFO", "logger": "autocast.stages.script", "msg": "script: 225 words via agnes (target 180 words)"}
+{"ts": "2026-10-09T15:25:32.607633+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage script: completed"}
+{"ts": "2026-10-09T15:25:32.608193+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: trying agnes (attempt 1)"}
+{"ts": "2026-10-09T15:26:28.625145+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: agnes succeeded"}
+{"ts": "2026-10-09T15:26:28.625666+00:00", "level": "INFO", "logger": "autocast.stages.direction", "msg": "direction: parsed and validated 3 characters and 8 scenes from agnes"}
+{"ts": "2026-10-09T15:26:28.626184+00:00", "level": "INFO", "logger": "autocast.stages.direction", "msg": "direction: 3 characters, 8 scenes via agnes"}
+{"ts": "2026-10-09T15:26:28.627535+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage direction: completed"}
+{"ts": "2026-10-09T15:26:28.628662+00:00", "level": "INFO", "logger": "autocast.stages.images", "msg": "video generation: starting 8 scenes (expected duration = 76.0s)"}
+{"ts": "2026-10-09T15:26:28.628858+00:00", "level": "INFO", "logger": "autocast.stages.images", "msg": "scene 1: generating video clip (duration=9.5s)..."}
+{"ts": "2026-10-09T15:26:28.628983+00:00", "level": "INFO", "logger": "autocast.cascade", "msg": "cascade: trying agnes-video (attempt 1)"}
+{"ts": "2026-10-09T15:26:28.629108+00:00", "level": "INFO", "logger": "autocast.providers.video", "msg": "video_gen[agnes]: submitting scene to agnes-video-v2.0 (duration=10s, native_audio=True)"}
+{"ts": "2026-10-09T15:26:28.860983+00:00", "level": "WARNING", "logger": "autocast.cascade", "msg": "cascade: agnes-video failed: video_gen[agnes]: create task failed with HTTP 503: {\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261009152628771927288FIj4D7Nq)\",\"type\":\"AgnesAI_error\"}}"}
+{"ts": "2026-10-09T15:26:28.862765+00:00", "level": "ERROR", "logger": "autocast.orchestrator", "msg": "stage images: FAILED -> all providers failed -> agnes-video: RuntimeError: video_gen[agnes]: create task failed with HTTP 503: {\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261009152628771927288FIj4D7Nq)\",\"type\":\"AgnesAI_error\"}}"}
+{"ts": "2026-10-09T15:26:28.864015+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "=== done: topic=completed script=completed direction=completed images=failed tts=pending assets=pending video=pending thumbnail=pending upload=pending ==="}
