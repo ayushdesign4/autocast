@@ -37,12 +37,19 @@ jobs:
         run: uv sync --frozen --extra media --extra tts || uv sync --extra media
 
       - name: Run pipeline
-        # run_id from the manual dispatch input if given, else today (the cron path).
-        # The orchestrator is RESUMABLE: dispatching a failed/partial run re-attempts
-        # its unfinished stages; a fully-completed run is a no-op (all stages skip).
+        # run_id from manual dispatch input if given, else today + GITHUB_RUN_ID (the scheduled/default path).
+        # The orchestrator is RESUMABLE: re-running a failed workflow run re-uses its GITHUB_RUN_ID to
+        # re-attempt unfinished stages; a brand new workflow run gets a fresh GITHUB_RUN_ID.
         run: |
           RUN_ID="${{ github.event.inputs.run_id }}"
-          [ -z "$RUN_ID" ] && RUN_ID="$(date -u +%F)"
+          if [ -z "$RUN_ID" ]; then
+            if [ -n "${{ github.run_id }}" ]; then
+              RUN_ID="$(date -u +%F)-${{ github.run_id }}"
+            else
+              RUN_ID="$(date -u +%F)"
+            fi
+          fi
+          echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
           echo "rendering run_id=$RUN_ID"
           uv run python -m autocast.orchestrator --run-id "$RUN_ID"
         env:
@@ -70,5 +77,6 @@ jobs:
           git config user.name  "autocast-bot"
           git config user.email "bot@autocast.local"
           git add runs/
-          git commit -m "run: $(date -u +%F)" || echo "nothing to commit"
+          git commit -m "run: ${RUN_ID:-$(date -u +%F)}" || echo "nothing to commit"
+          git pull --rebase origin main || true
           git push

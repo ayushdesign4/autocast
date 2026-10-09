@@ -18,7 +18,7 @@ import pytest
 
 from autocast.config import Config
 from autocast.providers.llm import build_llm_providers
-from autocast.spine import Character, CharacterBible, Run, Scene, Script, Shot, Topic, Upload, Video
+from autocast.spine import Character, CharacterBible, Run, Scene, Script, Shot, StageStatus, Topic, Upload, Video
 from autocast.stages import direction, images, topic, upload
 from autocast.stages.direction import _script_aware_direction, validate_direction
 from autocast.stages.topic import _get_recent_titles, _is_duplicate_or_too_similar, _normalize_tokens
@@ -379,3 +379,83 @@ def test_script_stage_enforces_mandatory_160_words(tmp_path):
     assert call_count_c == 1  # Accepted on first try, no expansion needed
     assert spine_good.script.word_count >= 160
     assert spine_good.script.provider == "mock-gemini"
+
+
+# ============================================================================
+# 7. Workflow Run Isolation & Resumability Regression Tests
+# ============================================================================
+
+def test_distinct_workflow_runs_use_separate_state(tmp_path):
+    """Prove that multiple runs on the same date with different GitHub run IDs do not share state."""
+    from autocast.orchestrator import run_pipeline
+
+    cfg = Config(runs_dir=tmp_path / "runs", queue_path=tmp_path / "queue" / "topics.json")
+    run1_id = "2026-10-09-18512130761"
+    run2_id = "2026-10-09-18518972583"
+
+    # Run 1 completes fully
+    spine1 = run_pipeline(run1_id, cfg, dry_run=True)
+    assert all(rec.status is StageStatus.COMPLETED for rec in spine1.stages)
+    assert cfg.run_json_path(run1_id).exists()
+
+    # Run 2 starts fresh, does NOT skip stages as already completed
+    spine2 = run_pipeline(run2_id, cfg, dry_run=True)
+    assert all(rec.status is StageStatus.COMPLETED for rec in spine2.stages)
+    assert cfg.run_json_path(run2_id).exists()
+
+    # Verify they have separate run directories and run.json files
+    assert cfg.run_dir(run1_id) != cfg.run_dir(run2_id)
+    assert spine1.run_id != spine2.run_id
+    assert spine2.stage("topic").attempts == 1
+    assert spine2.stage("script").attempts == 1
+
+
+def test_same_run_retry_resumes_from_failed_stage(tmp_path):
+    """Prove that retrying the same run_id after a failure resumes unfinished stages."""
+    from autocast.orchestrator import run_pipeline
+
+    cfg = Config(runs_dir=tmp_path / "runs", queue_path=tmp_path / "queue" / "topics.json")
+    run_id = "2026-10-09-retry12345"
+
+    # Attempt 1: Fails at images stage
+    with patch("autocast.stages.images.run", side_effect=RuntimeError("temporary API rate limit")):
+        spine1 = run_pipeline(run_id, cfg, dry_run=True)
+
+    # Stages before images succeeded, images failed, subsequent stages remained pending
+    assert spine1.is_completed("topic")
+    assert spine1.is_completed("script")
+    assert spine1.is_completed("direction")
+    assert spine1.stage("images").status is StageStatus.FAILED
+    assert spine1.stage("video").status is StageStatus.PENDING
+
+    # Attempt 2: Same run_id is retried (simulating GitHub Actions "Re-run failed jobs")
+    spine2 = run_pipeline(run_id, cfg, dry_run=True)
+
+    # Completed stages were skipped (attempts remained 1)
+    assert spine2.stage("topic").attempts == 1
+    assert spine2.stage("script").attempts == 1
+    assert spine2.stage("direction").attempts == 1
+
+    # Images was re-attempted and succeeded, and pipeline completed
+    assert spine2.stage("images").status is StageStatus.COMPLETED
+    assert spine2.stage("video").status is StageStatus.COMPLETED
+    assert spine2.stage("upload").status is StageStatus.COMPLETED
+    assert all(rec.status is StageStatus.COMPLETED for rec in spine2.stages)
+
+
+def test_make_default_run_id_handles_github_run_id():
+    """Verify make_default_run_id includes GITHUB_RUN_ID when present."""
+    from datetime import date
+    from autocast.orchestrator import make_default_run_id
+    from autocast.seeds import pick_seed_index
+
+    today = date.today().isoformat()
+
+    with patch.dict("os.environ", {"GITHUB_RUN_ID": "987654321"}):
+        assert make_default_run_id() == f"{today}-987654321"
+
+    with patch.dict("os.environ", {}, clear=True):
+        assert make_default_run_id() == today
+
+    # pick_seed_index parses extended run_id prefix correctly
+    assert pick_seed_index(f"{today}-987654321", 20) == pick_seed_index(today, 20)

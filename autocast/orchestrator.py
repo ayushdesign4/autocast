@@ -98,6 +98,16 @@ def run_pipeline(run_id: str, cfg: Config, *, dry_run: bool = False) -> Run:
     return spine
 
 
+def make_default_run_id() -> str:
+    """Generate default run ID. In GitHub Actions, includes GITHUB_RUN_ID to prevent collisions."""
+    import os
+    today = date.today().isoformat()
+    gh_run_id = os.environ.get("GITHUB_RUN_ID")
+    if gh_run_id:
+        return f"{today}-{gh_run_id}"
+    return today
+
+
 def _summary(spine: Run) -> str:
     parts = [f"{rec.name}={rec.status.value}" for rec in spine.stages]
     return " ".join(parts)
@@ -107,8 +117,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(prog="autocast", description="AutoCast daily pipeline")
     parser.add_argument(
         "--run-id",
-        default=date.today().isoformat(),
-        help="run id = date (YYYY-MM-DD). Defaults to today (UTC-naive local date).",
+        default=None,
+        help="run id. Defaults to YYYY-MM-DD or YYYY-MM-DD-<github_run_id> in GitHub Actions.",
     )
     parser.add_argument(
         "--dry-run",
@@ -117,12 +127,13 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    run_id = args.run_id or make_default_run_id()
     cfg = load_config()
-    run_log = cfg.run_dir(args.run_id) / "run.log.jsonl"
+    run_log = cfg.run_dir(run_id) / "run.log.jsonl"
     setup_logging(run_log)
 
-    log.info("=== AutoCast run %s (dry_run=%s) ===", args.run_id, args.dry_run)
-    spine = run_pipeline(args.run_id, cfg, dry_run=args.dry_run)
+    log.info("=== AutoCast run %s (dry_run=%s) ===", run_id, args.dry_run)
+    spine = run_pipeline(run_id, cfg, dry_run=args.dry_run)
 
     log.info("=== done: %s ===", _summary(spine))
     # Success = nothing FAILED. A SKIPPED stage (e.g. upload with no creds on a

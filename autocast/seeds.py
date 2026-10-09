@@ -2377,7 +2377,9 @@ def pick_seed_index(run_id: str, n: int) -> int:
     if n <= 0:
         return 0
     try:
-        return date.fromisoformat(run_id).toordinal() % n
+        # Extract leading YYYY-MM-DD date if present (e.g. 2026-10-09-18518972583)
+        date_str = run_id[:10] if len(run_id) >= 10 else run_id
+        return date.fromisoformat(date_str).toordinal() % n
     except ValueError:
         return 0
 
