@@ -73,7 +73,8 @@
       "clip_path": "assets/scene_001.mp4",
       "frame_path": "assets/scene_001.png",
       "has_native_audio": true,
-      "status": "completed"
+      "status": "completed",
+      "prompt_hash": null
     },
     {
       "scene_number": 2,
@@ -87,7 +88,8 @@
       "clip_path": "assets/scene_002.mp4",
       "frame_path": "assets/scene_002.png",
       "has_native_audio": true,
-      "status": "completed"
+      "status": "completed",
+      "prompt_hash": null
     },
     {
       "scene_number": 3,
@@ -101,7 +103,8 @@
       "clip_path": "assets/scene_003.mp4",
       "frame_path": "assets/scene_003.png",
       "has_native_audio": true,
-      "status": "completed"
+      "status": "completed",
+      "prompt_hash": null
     }
   ],
   "shots": [
@@ -124,7 +127,8 @@
       "dialogue_hindi": "नानी, वो बचपन के दिन कितने प्यारे थे ना!",
       "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Rustic Indian village courtyard. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
       "has_native_audio": true,
-      "status": "completed"
+      "status": "completed",
+      "prompt_hash": null
     },
     {
       "idx": 1,
@@ -145,7 +149,8 @@
       "dialogue_hindi": "देखना, इस बार मेरा कंचा सीधा निशाने पर लगेगा!",
       "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Indian children playing with marbles. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
       "has_native_audio": true,
-      "status": "completed"
+      "status": "completed",
+      "prompt_hash": null
     },
     {
       "idx": 2,
@@ -166,7 +171,8 @@
       "dialogue_hindi": "काश वो दिन कभी ख़त्म ही न होते।",
       "video_prompt": "1990s Ghibli-inspired hand-drawn 2D animation, traditional hand-painted aesthetic, highly detailed painterly backgrounds, soft watercolor shading, warm nostalgic color palette, natural Indian environment, cinematic composition, expressive hand-drawn characters, subtle film texture, gentle natural lighting, emotionally warm atmosphere, 16:9 landscape. Rooftop terrace at twilight. Spoken dialogue must exist ONLY as native audio and must NEVER appear visually as text. Do not visually render the dialogue as text. Absolutely no written language anywhere in the generated frames. No subtitles, captions, speech bubbles, labels, signs with readable text, Romanized Hindi, English words, letters, numbers, UI elements, logos, watermarks, or generated typography. Negative prompt: photorealism, 3D CGI, Pixar style, modern anime, plastic-looking characters, modern objects, smartphones, modern cars, futuristic elements, character morphing, identity drift, costume changes, extra limbs, duplicate characters, facial deformation, flickering, frame warping, style drift, random lighting changes, random weather changes, random environment changes, text, captions, subtitles, speech bubbles, words, letters, romanized hindi, logos, watermarks",
       "has_native_audio": true,
-      "status": "completed"
+      "status": "completed",
+      "prompt_hash": null
     }
   ],
   "audio": {

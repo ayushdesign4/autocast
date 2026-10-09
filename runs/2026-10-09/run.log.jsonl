@@ -144,3 +144,15 @@
 {"ts": "2026-10-09T09:37:35.899885+00:00", "level": "INFO", "logger": "autocast.stages.upload", "msg": "upload: notification email successfully sent to ayushdesign291@gmail.com for video Nv_BHhIsuKA"}
 {"ts": "2026-10-09T09:37:35.901099+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage upload: completed"}
 {"ts": "2026-10-09T09:37:35.902149+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "=== done: topic=completed script=completed direction=completed images=completed tts=completed assets=completed video=completed thumbnail=completed upload=completed ==="}
+{"ts": "2026-10-09T14:35:20.722945+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "=== AutoCast run 2026-10-09 (dry_run=False) ==="}
+{"ts": "2026-10-09T14:35:20.723168+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "orchestrator: resuming existing run 2026-10-09"}
+{"ts": "2026-10-09T14:35:20.724289+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage topic: already completed -> skip"}
+{"ts": "2026-10-09T14:35:20.724414+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage script: already completed -> skip"}
+{"ts": "2026-10-09T14:35:20.724518+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage direction: already completed -> skip"}
+{"ts": "2026-10-09T14:35:20.724650+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage images: already completed -> skip"}
+{"ts": "2026-10-09T14:35:20.724746+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage tts: already completed -> skip"}
+{"ts": "2026-10-09T14:35:20.724840+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage assets: already completed -> skip"}
+{"ts": "2026-10-09T14:35:20.724933+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage video: already completed -> skip"}
+{"ts": "2026-10-09T14:35:20.725035+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage thumbnail: already completed -> skip"}
+{"ts": "2026-10-09T14:35:20.725125+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "stage upload: already completed -> skip"}
+{"ts": "2026-10-09T14:35:20.726038+00:00", "level": "INFO", "logger": "autocast.orchestrator", "msg": "=== done: topic=completed script=completed direction=completed images=completed tts=completed assets=completed video=completed thumbnail=completed upload=completed ==="}
