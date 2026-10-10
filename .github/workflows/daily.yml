@@ -54,6 +54,8 @@ jobs:
           uv run python -m autocast.orchestrator --run-id "$RUN_ID"
         env:
           AGNES_API_KEY:        ${{ secrets.AGNES_API_KEY }}
+          AGNES_MODEL:          ${{ vars.AGNES_MODEL || secrets.AGNES_MODEL }}
+          AGNES_API_BASE:       ${{ vars.AGNES_API_BASE || secrets.AGNES_API_BASE }}
           GEMINI_API_KEY:       ${{ secrets.GEMINI_API_KEY || secrets.GOOGLE_API_KEY }}
           GROQ_API_KEY:         ${{ secrets.GROQ_API_KEY || secrets.GROQ_KEY }}
           CEREBRAS_API_KEY:     ${{ secrets.CEREBRAS_API_KEY || secrets.CEREBRAS_KEY }}

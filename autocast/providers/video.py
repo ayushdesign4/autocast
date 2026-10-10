@@ -1,7 +1,7 @@
 """Dedicated AI Video Generation Provider — Agnes AI (Primary) & Gemini Veo (Alternative).
 
 Direct text-to-video generation with natively synchronized audio/dialogue.
-- Primary provider: Agnes AI (`agnes-video-v2.0` via https://apihub.agnes-ai.com)
+- Primary provider: Agnes AI (`agnes-video-2.5` via https://apihub.agnes-ai.com)
 - Alternative/fallback provider: Google Gemini Veo (`veo-3.1-generate-preview`)
 - Keyless/dry-run fallback: synthetic FFmpeg clip generation for offline CI and testing.
 """
@@ -23,7 +23,8 @@ from autocast.seeds import ANTI_TEXT_PROMPT, NEGATIVE_PROMPT
 
 log = logging.getLogger("autocast.providers.video")
 
-DEFAULT_AGNES_MODEL = "agnes-video-v2.0"
+DEFAULT_AGNES_MODEL = "agnes-video-2.5"
+_AGNES_VIDEO_MODELS = ("agnes-video-2.5", "agnes-video-2.5-flash", "agnes-video", "agnes-video-v2.0")
 DEFAULT_AGNES_API_BASE = "https://apihub.agnes-ai.com"
 DEFAULT_VEO_MODEL = "veo-3.1-generate-preview"
 
@@ -185,7 +186,14 @@ def generate_agnes_video(
         return _generate_dry_clip(out_mp4, out_png, duration_s=duration_s)
 
     base_url = (getattr(cfg, "agnes_api_base", DEFAULT_AGNES_API_BASE) or DEFAULT_AGNES_API_BASE).rstrip("/")
-    model_name = getattr(cfg, "agnes_model", DEFAULT_AGNES_MODEL) or DEFAULT_AGNES_MODEL
+    configured_model = (getattr(cfg, "agnes_model", DEFAULT_AGNES_MODEL) or DEFAULT_AGNES_MODEL).strip() or DEFAULT_AGNES_MODEL
+
+    # Build candidate models starting with the configured model
+    models_to_try: list[str] = [configured_model]
+    for m in _AGNES_VIDEO_MODELS:
+        if m not in models_to_try:
+            models_to_try.append(m)
+
     clamped_duration = int(round(min(10.0, max(2.0, duration_s))))
     final_prompt = _ensure_anti_text_prompt(prompt)
 
@@ -193,61 +201,109 @@ def generate_agnes_video(
     if rate_limit_interval is not None:
         AGNES_LIMITER.min_interval_s = float(rate_limit_interval)
 
-    log.info(
-        "video_gen[agnes]: submitting scene to %s (duration=%ds, native_audio=True)",
-        model_name,
-        clamped_duration,
-    )
-
     headers = {
         "Authorization": f"Bearer {cfg.agnes_api_key}",
         "Content-Type": "application/json",
     }
-    payload = {
-        "model": model_name,
-        "prompt": final_prompt,
-        "seconds": str(clamped_duration),
-        "size": "720P",
-        "aspect_ratio": "16:9",
-    }
 
     create_url = f"{base_url}/v1/videos"
     max_retries = 3
-    backoff_s = 60.0
     resp = None
+    accepted_model: str | None = None
+    last_err: Exception | None = None
 
     with httpx.Client(timeout=60.0) as client:
-        for attempt in range(max_retries + 1):
-            # 1. Enforce minimum 60s spacing between generation POST requests
-            AGNES_LIMITER.wait_if_needed()
+        for model_name in models_to_try:
+            payload = {
+                "model": model_name,
+                "prompt": final_prompt,
+                "seconds": str(clamped_duration),
+                "size": "720P",
+                "aspect_ratio": "16:9",
+                "mode": "text",
+            }
 
-            try:
-                AGNES_LIMITER.record_request()
-                resp = client.post(create_url, headers=headers, json=payload)
-            except Exception as exc:
-                raise RuntimeError(f"video_gen[agnes]: failed to connect to API at {create_url}: {exc}") from exc
+            log.info(
+                "video_gen[agnes]: submitting scene to %s (duration=%ds, native_audio=True)",
+                model_name,
+                clamped_duration,
+            )
 
-            # 2. Handle HTTP 429 with bounded exponential backoff
-            if resp.status_code == 429:
-                if attempt < max_retries:
+            backoff_s = 60.0
+
+            for attempt in range(max_retries + 1):
+                # 1. Enforce minimum 60s spacing between generation POST requests
+                AGNES_LIMITER.wait_if_needed()
+
+                try:
+                    resp = client.post(create_url, headers=headers, json=payload)
+                except Exception as exc:
+                    last_err = RuntimeError(f"video_gen[agnes]: failed to connect to API at {create_url}: {exc}")
+                    log.warning("video_gen[agnes]: connection failed for %s: %s", model_name, exc)
+                    break
+
+                # 2. Check for distributor 503 / model_not_found / channel unavailable
+                is_model_unavailable = (
+                    resp.status_code == 503
+                    or "model_not_found" in resp.text
+                    or "No available channel" in resp.text
+                    or (resp.status_code == 404 and "model" in resp.text.lower())
+                )
+                if is_model_unavailable:
+                    err_msg = resp.text[:200]
                     log.warning(
-                        "video_gen[agnes]: rate limited (HTTP 429). Backing off for %.1fs (attempt %d/%d)...",
-                        backoff_s,
-                        attempt + 1,
-                        max_retries,
+                        "video_gen[agnes]: model '%s' unavailable on distributor (HTTP %d: %s); skipping retries for this model",
+                        model_name,
+                        resp.status_code,
+                        err_msg,
                     )
-                    time.sleep(backoff_s)
-                    backoff_s = min(240.0, backoff_s * 1.5)
-                    continue
-                raise RuntimeError(
-                    f"video_gen[agnes]: create task rate-limited (HTTP 429) after {max_retries} retries: {resp.text[:200]}"
-                )
+                    last_err = RuntimeError(
+                        f"video_gen[agnes]: model '{model_name}' unavailable on distributor (HTTP {resp.status_code}: {err_msg})"
+                    )
+                    break
 
-            if resp.status_code not in (200, 201, 202):
-                raise RuntimeError(
-                    f"video_gen[agnes]: create task failed with HTTP {resp.status_code}: {resp.text[:200]}"
-                )
-            break
+                # 3. Handle HTTP 429 with bounded exponential backoff
+                if resp.status_code == 429:
+                    if attempt < max_retries:
+                        log.warning(
+                            "video_gen[agnes]: rate limited (HTTP 429). Backing off for %.1fs (attempt %d/%d)...",
+                            backoff_s,
+                            attempt + 1,
+                            max_retries,
+                        )
+                        time.sleep(backoff_s)
+                        backoff_s = min(240.0, backoff_s * 1.5)
+                        continue
+                    last_err = RuntimeError(
+                        f"video_gen[agnes]: create task rate-limited (HTTP 429) after {max_retries} retries: {resp.text[:200]}"
+                    )
+                    break
+
+                if resp.status_code not in (200, 201, 202):
+                    err_msg = resp.text[:200]
+                    last_err = RuntimeError(
+                        f"video_gen[agnes]: create task failed with HTTP {resp.status_code}: {err_msg}"
+                    )
+                    log.warning(
+                        "video_gen[agnes]: model '%s' creation failed with HTTP %d: %s",
+                        model_name,
+                        resp.status_code,
+                        err_msg,
+                    )
+                    break
+
+                # Successfully accepted! Record rate limiter timestamp
+                AGNES_LIMITER.record_request()
+                accepted_model = model_name
+                break
+
+            if accepted_model:
+                break
+
+        if not accepted_model or resp is None or resp.status_code not in (200, 201, 202):
+            raise RuntimeError(
+                f"video_gen[agnes]: all candidate models failed {models_to_try}. Last error: {last_err}"
+            )
 
         try:
             data = resp.json()
@@ -261,7 +317,7 @@ def generate_agnes_video(
         if not video_id:
             raise RuntimeError(f"video_gen[agnes]: no video_id found in creation response: {data}")
 
-        log.info("video_gen[agnes]: task created with ID: %s", video_id)
+        log.info("video_gen[agnes]: task created with ID: %s (model: %s)", video_id, accepted_model)
 
         # Polling loop
         start_time = time.monotonic()
@@ -274,7 +330,7 @@ def generate_agnes_video(
                     f"video_gen[agnes]: video generation timed out after {int(elapsed)} seconds (task: {video_id})"
                 )
 
-            poll_url = f"{base_url}/agnesapi?video_id={video_id}&model_name={model_name}"
+            poll_url = f"{base_url}/agnesapi?video_id={video_id}&model_name={accepted_model}"
             try:
                 poll_resp = client.get(poll_url, headers=headers)
                 if poll_resp.status_code == 404:
@@ -446,7 +502,7 @@ def build_video_providers(
     """Return ordered provider list for cascade integration.
 
     Default hierarchy:
-    1. Agnes AI (`agnes-video-v2.0`) — primary native-audio provider.
+    1. Agnes AI (`agnes-video-2.5`) — primary native-audio provider.
     2. Google Gemini Veo (`veo-3.1-generate-preview`) — alternative/fallback.
     3. Dry-stub — offline / synthetic test fallback.
     """

@@ -488,3 +488,123 @@ def test_agnes_provider_429_backoff_and_retry(tmp_path, monkeypatch):
     assert slept[0] == 60.0
 
 
+def test_agnes_provider_503_model_not_found_fallback_to_candidate(tmp_path, monkeypatch):
+    """Verify that HTTP 503 / model_not_found causes fast candidate model fallback without looping."""
+    import httpx
+    from autocast.providers.video import AGNES_LIMITER, generate_agnes_video
+
+    AGNES_LIMITER.reset()
+
+    cfg = Config(
+        runs_dir=tmp_path / "runs",
+        queue_path=tmp_path / "queue" / "topics.json",
+        agnes_api_key="mock-agnes-key",
+        agnes_model="agnes-video-v2.0",  # Retired model requested
+        agnes_rate_limit_seconds=0.0,
+    )
+
+    models_called = []
+    slept = []
+
+    def mock_post(url, headers, json):
+        model = json.get("model")
+        models_called.append(model)
+        if model == "agnes-video-v2.0":
+            return httpx.Response(
+                503,
+                json={
+                    "error": {
+                        "code": "model_not_found",
+                        "message": "No available channel for model agnes-video-v2.0 under group default (distributor)",
+                        "type": "AgnesAI_error",
+                    }
+                },
+            )
+        # Next candidate model succeeds
+        return httpx.Response(200, json={"video_id": f"vid_for_{model}"})
+
+    monkeypatch.setattr("time.sleep", lambda s: slept.append(s))
+    monkeypatch.setattr(httpx.Client, "post", lambda self, url, headers=None, json=None: mock_post(url, headers, json))
+    monkeypatch.setattr(
+        httpx.Client,
+        "get",
+        lambda self, url, headers=None: httpx.Response(
+            200, json={"status": "completed", "url": "https://cdn.example.com/out.mp4"}
+        ),
+    )
+
+    class MockStreamContext:
+        def __enter__(self):
+            class Resp:
+                status_code = 200
+                def iter_bytes(self, chunk_size=65536):
+                    yield b"MOCK_FALLBACK_MP4"
+            return Resp()
+        def __exit__(self, *args):
+            pass
+
+    monkeypatch.setattr(httpx.Client, "stream", lambda self, method, url: MockStreamContext())
+
+    out_mp4 = tmp_path / "recovered_scene.mp4"
+    res = generate_agnes_video(cfg, prompt="A peaceful afternoon", out_mp4=str(out_mp4), poll_interval_s=0)
+
+    assert Path(res).exists()
+    assert Path(res).read_bytes() == b"MOCK_FALLBACK_MP4"
+    # Verify agnes-video-v2.0 was tried first, then agnes-video-2.5 was tried
+    assert models_called[0] == "agnes-video-v2.0"
+    assert models_called[1] == "agnes-video-2.5"
+    # Verify it did not sleep/retry on 503 model_not_found
+    assert len(slept) == 0
+
+
+def test_agnes_provider_all_503_fails_fast_to_cascade(tmp_path, monkeypatch):
+    """Verify that if all Agnes models return 503, cascade falls back cleanly to Veo."""
+    import httpx
+    from autocast.providers.cascade import run_with_fallback
+    from autocast.providers.video import AGNES_LIMITER, build_video_providers
+
+    AGNES_LIMITER.reset()
+
+    cfg = Config(
+        runs_dir=tmp_path / "runs",
+        queue_path=tmp_path / "queue" / "topics.json",
+        agnes_api_key="mock-agnes-key",
+        gemini_api_key="mock-gemini-key",
+        agnes_rate_limit_seconds=0.0,
+    )
+
+    def mock_post(url, headers, json):
+        # All Agnes models return 503
+        return httpx.Response(
+            503,
+            json={
+                "error": {
+                    "code": "model_not_found",
+                    "message": f"No available channel for model {json.get('model')} under group default (distributor)",
+                }
+            },
+        )
+
+    monkeypatch.setattr(httpx.Client, "post", lambda self, url, headers=None, json=None: mock_post(url, headers, json))
+
+    out_mp4 = tmp_path / "cascade_scene.mp4"
+
+    # Mock Veo provider function
+    veo_called = False
+    def mock_veo(cfg, *, prompt, out_mp4, **kwargs):
+        nonlocal veo_called
+        veo_called = True
+        Path(out_mp4).write_bytes(b"VEO_GENERATED_VIDEO")
+        return str(out_mp4)
+
+    monkeypatch.setattr("autocast.providers.video.generate_veo_video", mock_veo)
+
+    providers = build_video_providers(cfg, prompt="A nostalgic memory", out_mp4=str(out_mp4))
+    res = run_with_fallback(providers)
+
+    assert res.provider_used == "gemini-veo"
+    assert veo_called is True
+    assert Path(out_mp4).read_bytes() == b"VEO_GENERATED_VIDEO"
+
+
+

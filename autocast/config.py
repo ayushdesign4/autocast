@@ -41,8 +41,20 @@ class Config(BaseSettings):
 
     # ---- LLM & Video providers (Agnes primary video/companion LLM, Gemini primary LLM/Veo fallback) ----
     agnes_api_key: str | None = Field(default=None)
-    agnes_model: str = "agnes-video-v2.0"
-    agnes_api_base: str = "https://apihub.agnes-ai.com"
+    agnes_model: str = Field(
+        default="agnes-video-2.5",
+        validation_alias=AliasChoices(
+            "AGNES_MODEL",
+            "agnes_model",
+        ),
+    )
+    agnes_api_base: str = Field(
+        default="https://apihub.agnes-ai.com",
+        validation_alias=AliasChoices(
+            "AGNES_API_BASE",
+            "agnes_api_base",
+        ),
+    )
     agnes_rate_limit_seconds: float = 60.0
     video_provider: str = "agnes"
 
@@ -91,6 +103,20 @@ class Config(BaseSettings):
             cleaned = v.strip()
             return cleaned if cleaned else None
         return v
+
+    @field_validator("agnes_model", mode="before")
+    @classmethod
+    def _clean_agnes_model(cls, v: object) -> str:
+        if isinstance(v, str) and not v.strip():
+            return "agnes-video-2.5"
+        return str(v).strip() if v else "agnes-video-2.5"
+
+    @field_validator("agnes_api_base", mode="before")
+    @classmethod
+    def _clean_agnes_api_base(cls, v: object) -> str:
+        if isinstance(v, str) and not v.strip():
+            return "https://apihub.agnes-ai.com"
+        return str(v).strip() if v else "https://apihub.agnes-ai.com"
 
     # ---- Cloudflare Workers AI (LLM + image fallback). Bills on overage:
     #      cascade.py must guard it behind the budget kill-switch.
