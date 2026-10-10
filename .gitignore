@@ -1,35 +1,54 @@
-# Secrets — never commit
-.env
-client_secret*.json
-token.json
-*_refresh_token*
-
-# Python
+# Python & environments
 __pycache__/
-*.pyc
-.venv/
-.pytest_cache/
-*.egg-info/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
 build/
+develop-eggs/
 dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+ENV/
 
-# uv
-# (uv.lock IS committed — reproducible installs)
+# Output runs & media files (Never commit heavy media)
+output/runs/
+*.mp4
+*.wav
+*.mp3
+*.png
+*.jpg
+*.jpeg
 
-# Heavy run assets: upload to YouTube, keep only the youtube_video_id in run.json.
-# Committed per-run: run.json, run.log.jsonl, thumb.jpg, and manifest.json.
-runs/*/assets/*.mp4
-runs/*/assets/*.wav
-runs/*/assets/*.mp3
-runs/*/assets/*.png
-runs/*/assets/reel.mp4
-runs/*/assets/final.mp4
-runs/*/assets/concat.txt
-runs/*/assets/words.json
-runs/*/assets/captions.ass
-# keep thumbnails (tiny, the UI wants them):
-!runs/*/assets/thumb.jpg
+# Secrets & local config
+.env
+.env.*
+secrets/
+*.token
+*.json.token
+client_secret*.json
 
-# Temporary smoke test output directories
-runs/agnes_smoke_test/
-runs/live_scene_test/
+# Testing & IDEs
+.pytest_cache/
+.coverage
+htmlcov/
+.idea/
+.vscode/
+*.swp
+
+# History files to keep
+!data/history.json
+!output/history/
