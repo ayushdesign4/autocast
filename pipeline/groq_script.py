@@ -389,6 +389,39 @@ def _get_fallback_pack(preset: ChannelPreset, topic: str) -> dict[str, Any]:
     return chosen
 
 
+def validate_short_pack(
+    data: dict[str, Any],
+    *,
+    min_words: int,
+    max_words: int,
+    seg_count: int,
+) -> tuple[bool, str]:
+    """Validate that story pack contains valid schema, narration length, and distinct scene prompts."""
+    if not isinstance(data, dict):
+        return False, "Response is not a valid JSON dictionary"
+
+    title = str(data.get("youtube_title", "")).strip()
+    if not title:
+        return False, "Missing or empty youtube_title"
+
+    narration = str(data.get("full_narration", "")).strip()
+    word_count = len(narration.split())
+    if word_count < min_words:
+        return False, f"Narration too short: {word_count} words (minimum required is {min_words})"
+    if max_words and word_count > max_words + 30:
+        return False, f"Narration too long: {word_count} words (maximum allowed is {max_words})"
+
+    prompts = data.get("image_prompts", [])
+    if not isinstance(prompts, list) or len(prompts) != seg_count:
+        return False, f"Expected exactly {seg_count} image_prompts, got {len(prompts) if isinstance(prompts, list) else 'invalid'}"
+
+    for i, p in enumerate(prompts):
+        if not isinstance(p, str) or len(p.strip()) < 10:
+            return False, f"Scene prompt {i + 1} is empty or too short: {p}"
+
+    return True, ""
+
+
 def generate_short_pack(
     preset: ChannelPreset,
     *,
@@ -442,6 +475,7 @@ MANDATORY RULES:
     max_attempts = 2
     last_err = ""
 
+    # Priority 1 & 2: Groq primary model & backup model
     for attempt in range(max_attempts):
         prompt_with_feedback = user
         if attempt > 0:
@@ -452,31 +486,38 @@ MANDATORY RULES:
 
         try:
             data = _call_groq(preset, prompt_with_feedback, temperature=0.75 if attempt == 0 else 0.4)
-
-            narration = str(data.get("full_narration", "")).strip()
-            word_count = len(narration.split())
-            if word_count < min_words:
-                raise ValueError(f"Narration too short: {word_count} words (minimum required is {min_words})")
-
-            prompts = data.get("image_prompts", [])
-            if not isinstance(prompts, list) or len(prompts) != seg_count:
-                raise ValueError(f"Expected exactly {seg_count} image_prompts, got {len(prompts)}")
-
-            for i, p in enumerate(prompts):
-                if not isinstance(p, str) or len(p.strip()) < 10:
-                    raise ValueError(f"Scene prompt {i + 1} is empty or too short: {p}")
-
-            title = str(data.get("youtube_title", "")).strip()
-            if not title:
-                raise ValueError("Missing youtube_title")
+            valid, val_err = validate_short_pack(data, min_words=min_words, max_words=max_words, seg_count=seg_count)
+            if not valid:
+                raise ValueError(val_err)
 
             data["topic"] = topic
-            log.info("Groq script generated successfully (%d words, %d scene prompts)", word_count, len(prompts))
+            word_count = len(str(data.get("full_narration", "")).split())
+            log.info("Groq script generated successfully (%d words, %d scene prompts)", word_count, len(data.get("image_prompts", [])))
             return data
 
         except Exception as exc:
             last_err = str(exc)
             log.warning("Groq script generation attempt %d failed: %s", attempt + 1, exc)
 
-    log.error("All Groq attempts failed. Using validated 90s nostalgia fallback pack.")
+    # Priority 3: OpenRouter free-model fallback
+    log.warning("All Groq attempts failed. Attempting OpenRouter free fallback...")
+    try:
+        from pipeline.openrouter import generate_openrouter_short_pack
+
+        openrouter_pack = generate_openrouter_short_pack(
+            preset,
+            user_prompt=user,
+            min_words=min_words,
+            max_words=max_words,
+            seg_count=seg_count,
+            topic=topic,
+        )
+        if openrouter_pack:
+            log.info("OpenRouter free fallback produced validated story pack.")
+            return openrouter_pack
+    except Exception as openrouter_err:
+        log.warning("OpenRouter free fallback encountered unexpected error: %s", openrouter_err)
+
+    # Priority 4: Existing history-filtered 10-story fallback catalog
+    log.error("All LLM providers (Groq, OpenRouter) failed. Using validated 90s nostalgia fallback pack.")
     return _get_fallback_pack(preset, topic)
