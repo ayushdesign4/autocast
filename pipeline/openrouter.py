@@ -67,6 +67,9 @@ def extract_json_from_text(content: str) -> dict[str, Any]:
     raise ValueError(f"Extracted JSON is not a dictionary: {type(parsed)}")
 
 
+_verified_free_models_cache: set[str] = set()
+
+
 def is_verified_free_model(model_id: str, pricing: dict[str, Any] | None = None) -> bool:
     """Strictly verify that a model ID or metadata is exclusively free.
 
@@ -87,6 +90,9 @@ def is_verified_free_model(model_id: str, pricing: dict[str, Any] | None = None)
     if clean_id.endswith(":free"):
         return True
 
+    if clean_id in _verified_free_models_cache:
+        return True
+
     # If pricing metadata is available, verify both prompt and completion are zero
     if pricing and isinstance(pricing, dict):
         try:
@@ -96,6 +102,7 @@ def is_verified_free_model(model_id: str, pricing: dict[str, Any] | None = None)
                 prompt_cost = float(p_val)
                 completion_cost = float(c_val)
                 if prompt_cost == 0.0 and completion_cost == 0.0:
+                    _verified_free_models_cache.add(clean_id)
                     return True
         except (ValueError, TypeError):
             pass
@@ -114,7 +121,7 @@ def fetch_free_models(
     Only models verified as free are returned.
     """
     global _cached_free_catalog
-    if _cached_free_catalog:
+    if client is None and not refresh and _cached_free_catalog:
         return list(_cached_free_catalog)
 
     url = f"{base_url.rstrip('/')}/models"
@@ -189,8 +196,13 @@ def _call_openrouter_completion(
     if try_json_mode:
         payload["response_format"] = {"type": "json_object"}
 
-    resp = client.post(url, headers=headers, json=payload)
-    status = resp.status_code
+    try:
+        resp = client.post(url, headers=headers, json=payload)
+        status = resp.status_code
+    except (httpx.TimeoutException, httpx.NetworkError) as net_err:
+        return None, 504, f"Network/timeout error: {net_err}"
+    except Exception as exc:
+        return None, 500, f"Unexpected request error: {exc}"
 
     if status == 200:
         data = resp.json()
@@ -198,9 +210,12 @@ def _call_openrouter_completion(
         choices = data.get("choices", [])
         if not choices:
             return None, 200, "Empty choices returned from OpenRouter"
-        content = choices[0].get("message", {}).get("content", "")
+        content = (choices[0].get("message", {}).get("content") or "").strip()
         if not content:
             return None, 200, "Empty message content returned from OpenRouter"
+
+        if not try_json_mode:
+            return content, 200, actual_model
 
         try:
             parsed = extract_json_from_text(content)
