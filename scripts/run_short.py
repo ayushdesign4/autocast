@@ -48,7 +48,11 @@ logging.basicConfig(
 log = logging.getLogger("scripts.run_short")
 
 
-def select_unique_topic(preset: dict, requested_topic: str | None = None) -> str:
+def select_unique_topic(
+    preset: dict,
+    requested_topic: str | None = None,
+    extra_exclude: set[str] | None = None,
+) -> str:
     """Select a fresh, non-duplicate topic from the preset pool."""
     if requested_topic and requested_topic.strip():
         return requested_topic.strip()
@@ -56,6 +60,8 @@ def select_unique_topic(preset: dict, requested_topic: str | None = None) -> str
     pool = list(preset.get("topic_pool") or ["1990s Indian childhood memories"])
     history = load_history()
     used_topics = {entry.get("topic", "").strip().lower() for entry in history}
+    if extra_exclude:
+        used_topics.update(t.strip().lower() for t in extra_exclude)
 
     # Prefer unused topics from pool
     unused = [t for t in pool if t.strip().lower() not in used_topics]
@@ -64,8 +70,12 @@ def select_unique_topic(preset: dict, requested_topic: str | None = None) -> str
         log.info("Selected fresh topic from pool: '%s'", chosen)
         return chosen
 
-    # If all in pool have been used at least once, pick the least recently used
-    chosen = random.choice(pool)
+    # If all in pool have been logged or excluded, cycle among pool avoiding extra_exclude
+    fallback_pool = [t for t in pool if not extra_exclude or t.strip().lower() not in extra_exclude]
+    if fallback_pool:
+        chosen = random.choice(fallback_pool)
+    else:
+        chosen = random.choice(pool)
     log.info("All pool topics previously logged; cycling topic: '%s'", chosen)
     return chosen
 
@@ -94,27 +104,80 @@ def main() -> None:
     upload_attempted = False
 
     try:
-        # ── 1. Select Topic ──────────────────────────────────────────
-        log.info("=== Starting ZeroCost Shorts Pipeline: run_id=%s ===", run_id)
-        topic = select_unique_topic(preset, args.topic)
-
-        # ── 2. Script Generation (Groq) ──────────────────────────────
+        # ── 1 & 2. Bounded Novelty Generation Loop ───────────────────
         current_stage = "script_generation"
-        log.info("Stage 1/7: Groq script generation...")
-        pack = generate_short_pack(preset, topic_hint=topic, channel_id=args.channel)
+        log.info("=== Starting ZeroCost Shorts Pipeline: run_id=%s ===", run_id)
+        MAX_STORY_ATTEMPTS = 4
+        pack = None
+        rejected_reasons: list[str] = []
+        extra_exclude_topics: set[str] = set()
 
-        title = pack["youtube_title"]
-        narration = pack["full_narration"]
-        image_prompts = pack["image_prompts"]
-        tags = pack.get("tags", ["90s nostalgia", "indian nostalgia", "Shorts"])
+        for attempt in range(1, MAX_STORY_ATTEMPTS + 1):
+            log.info("Story generation attempt %d/%d...", attempt, MAX_STORY_ATTEMPTS)
+            topic = select_unique_topic(
+                preset,
+                args.topic if attempt == 1 else None,
+                extra_exclude=extra_exclude_topics,
+            )
 
-        # Check for duplicates against history
-        is_dup, dup_reason = is_duplicate_story(topic, title, narration)
-        if is_dup:
-            log.warning("Duplicate detected (%s). Proceeding with modified novel phrasing.", dup_reason)
+            try:
+                candidate_pack = generate_short_pack(
+                    preset,
+                    topic_hint=topic,
+                    channel_id=args.channel,
+                    avoid_topics=list(extra_exclude_topics),
+                )
+            except Exception as exc:
+                log.warning("Attempt %d generation error: %s", attempt, exc)
+                rejected_reasons.append(f"Attempt {attempt} generation error: {exc}")
+                extra_exclude_topics.add(topic)
+                continue
+
+            cand_title = candidate_pack["youtube_title"]
+            cand_narration = candidate_pack["full_narration"]
+            cand_prompts = candidate_pack["image_prompts"]
+
+            is_dup, dup_reason = is_duplicate_story(
+                topic=topic,
+                title=cand_title,
+                narration=cand_narration,
+                scene_prompts=cand_prompts,
+            )
+
+            if is_dup:
+                log.warning(
+                    "Attempt %d rejected: Duplicate story detected (%s). Title='%s'.",
+                    attempt,
+                    dup_reason,
+                    cand_title,
+                )
+                rejected_reasons.append(f"Attempt {attempt} rejected: {dup_reason} (Title='{cand_title}')")
+                extra_exclude_topics.add(topic)
+                extra_exclude_topics.add(cand_title)
+                continue
+
+            # Story is completely novel and verified!
+            pack = candidate_pack
+            title = cand_title
+            narration = cand_narration
+            image_prompts = cand_prompts
+            tags = pack.get("tags", ["90s nostalgia", "indian nostalgia", "Shorts"])
+            log.info(
+                "Story accepted on attempt %d: '%s' (%d words, %d scenes)",
+                attempt,
+                title,
+                len(narration.split()),
+                len(image_prompts),
+            )
+            break
+
+        if not pack:
+            failure_detail = "; ".join(rejected_reasons)
+            raise RuntimeError(
+                f"Failed to generate a novel story after {MAX_STORY_ATTEMPTS} attempts: {failure_detail}"
+            )
 
         (run_dir / "script.json").write_text(json.dumps(pack, indent=2, ensure_ascii=False), encoding="utf-8")
-        log.info("Script validated: '%s' (%d words, %d scenes)", title, len(narration.split()), len(image_prompts))
 
         # ── 3. Images (Pollinations) ─────────────────────────────────
         current_stage = "image_generation"
@@ -174,6 +237,26 @@ def main() -> None:
         # ── 8. Upload to YouTube ─────────────────────────────────────
         video_url = ""
         if args.upload:
+            current_stage = "pre_upload_validation"
+            pre_dup, pre_reason = is_duplicate_story(
+                topic=topic,
+                title=title,
+                narration=narration,
+                video_hash=video_hash,
+                scene_prompts=image_prompts,
+            )
+            if pre_dup:
+                raise RuntimeError(
+                    f"PRE-UPLOAD GATE BLOCKED: Video is a duplicate of a prior upload ({pre_reason}). Aborting upload."
+                )
+
+            # Ensure run_id does not already have an uploaded video
+            for entry in load_history():
+                if run_id and entry.get("run_id") == run_id and entry.get("video_id"):
+                    raise RuntimeError(
+                        f"PRE-UPLOAD GATE BLOCKED: run_id '{run_id}' already has uploaded video '{entry['video_id']}'."
+                    )
+
             current_stage = "youtube_upload"
             upload_attempted = True
             log.info("Stage 7/7: Uploading Short to YouTube (%s)...", args.privacy)
@@ -206,6 +289,7 @@ def main() -> None:
             video_hash=video_hash,
             duration_s=actual_dur,
             run_id=run_id,
+            scene_prompts=image_prompts,
         )
 
         # Write run.json record
