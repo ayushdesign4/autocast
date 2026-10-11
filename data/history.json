@@ -22,5 +22,30 @@
     "video_id": "CTeQNsoOuwU",
     "video_url": "https://www.youtube.com/shorts/CTeQNsoOuwU",
     "duration_s": 39.53
+  },
+  {
+    "channel": "90s_indian_nostalgia",
+    "run_id": "2026-10-11-38117346076",
+    "timestamp_utc": "2026-10-11T06:16:46.567833+00:00",
+    "timestamp_ist": "2026-10-11T11:46:46.567833+05:30",
+    "topic": "गर्मियों की छुट्टियों में नानी के घर चारपाई, आम के बगीचे और रात में छत पर तारों भरी नींद",
+    "topic_normalized": "गर्मियों की छुट्टियों में नानी के घर चारपाई आम के बगीचे और रात में छत पर तारों भरी नींद",
+    "title": "गर्मियों की छुट्टियों में नानी की छत पर तारों की यादें",
+    "title_normalized": "गर्मियों की छुट्टियों में नानी की छत पर तारों की यादें",
+    "summary": "गर्मियों की छुट्टियों में नानी के घर आए जाने का मज़ाहिया अलग होता था। दरवाज़े खुले रहते थे, आम के बगीचे में झूलते रहिंदे थे और हर शाम नानी की…",
+    "narration_hash": "0de0112d8daa733d",
+    "script_sha256": "0de0112d8daa733d0173371b327884f65dbe2f67670395b37cb1da8e71326b28",
+    "scene_prompt_hashes": [
+      "1b1ee826b9d62cd2",
+      "a450fe35ec4b1085",
+      "f8ca3d141d6cd8eb",
+      "ab353d3a73483ea9",
+      "845919925186ebfa",
+      "189ca1352065d70a"
+    ],
+    "video_hash": "4d0dbdc572924869",
+    "video_id": "rM8RIvcyqZA",
+    "video_url": "https://www.youtube.com/shorts/rM8RIvcyqZA",
+    "duration_s": 42.1
   }
 ]
