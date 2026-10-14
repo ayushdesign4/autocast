@@ -47,5 +47,30 @@
     "video_id": "rM8RIvcyqZA",
     "video_url": "https://www.youtube.com/shorts/rM8RIvcyqZA",
     "duration_s": 42.1
+  },
+  {
+    "channel": "90s_indian_nostalgia",
+    "run_id": "2026-10-14-38495133435",
+    "timestamp_utc": "2026-10-14T01:24:53.183859+00:00",
+    "timestamp_ist": "2026-10-14T06:54:53.183859+05:30",
+    "topic": "सर्दियों की गुनगुनी धूप में स्वेटर बुनती मां और दाल की बड़ी सुखाने की छत की दोपहर",
+    "topic_normalized": "सर्दियों की गुनगुनी धूप में स्वेटर बुनती मां और दाल की बड़ी सुखाने की छत की दोपहर",
+    "title": "रेडियो पर बिनाका गीतमाला और अमीन सयानी की आवाज",
+    "title_normalized": "रेडियो पर बिनाका गीतमाला और अमीन सयानी की आवाज",
+    "summary": "बुधवार की शाम को ठीक आठ बजते ही घर के लकड़ी वाले रेडियो के सामने पूरा परिवार सांस रोककर बैठ जाता था। जैसे ही रेडियो सीलोन से अमीन सयानी की…",
+    "narration_hash": "a5c4530d11b2ce9e",
+    "script_sha256": "a5c4530d11b2ce9e51dafb025c82c030986148e2317859ad8ee8ff7205a7372b",
+    "scene_prompt_hashes": [
+      "2f276f8c8c7a389d",
+      "79c7be1ddd3ac3c5",
+      "44a115228e99e935",
+      "2e2545720e29ff7e",
+      "4bc8c1cc1c6d928b",
+      "8ce73a7b524a61bc"
+    ],
+    "video_hash": "d84dfc7aa1981b6e",
+    "video_id": "keTokspqxYI",
+    "video_url": "https://www.youtube.com/shorts/keTokspqxYI",
+    "duration_s": 40.37
   }
 ]
