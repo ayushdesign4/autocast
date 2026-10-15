@@ -72,5 +72,30 @@
     "video_id": "keTokspqxYI",
     "video_url": "https://www.youtube.com/shorts/keTokspqxYI",
     "duration_s": 40.37
+  },
+  {
+    "channel": "90s_indian_nostalgia",
+    "run_id": "2026-10-15-38661690051",
+    "timestamp_utc": "2026-10-15T00:49:32.221612+00:00",
+    "timestamp_ist": "2026-10-15T06:19:32.221612+05:30",
+    "topic": "ट्रेन का वो स्लीपर कोच का सफर, खिड़की वाली सीट और कुल्हड़ वाली चाय की सोंधी खुशबू",
+    "topic_normalized": "ट्रेन का वो स्लीपर कोच का सफर खिड़की वाली सीट और कुल्हड़ वाली चाय की सोंधी खुशबू",
+    "title": "गली क्रिकेट, शर्मा जी की खिड़की और आखिरी गेंद का रोमांच",
+    "title_normalized": "गली क्रिकेट शर्मा जी की खिड़की और आखिरी गेंद का रोमांच",
+    "summary": "रविवार की दोपहर को जब बड़े-बुजुर्ग खाना खाकर सो जाते थे, तब मोहल्ले की संकरी गली में हमारा वर्ल्ड कप शुरू होता था। लाल रंग की टेनिस बॉल, लकड़ी का…",
+    "narration_hash": "7366e91dcfb38542",
+    "script_sha256": "7366e91dcfb38542c663966b59f6b1a289a29a32ecf972b44223ef3d46bbd621",
+    "scene_prompt_hashes": [
+      "a5c3c66980f12910",
+      "189516fbcc129548",
+      "d35904a217c430ce",
+      "505b055043e48991",
+      "83384a82931598cb",
+      "96e21495f407a2c1"
+    ],
+    "video_hash": "a809e5c34eff043c",
+    "video_id": "o2lwv4vP5NY",
+    "video_url": "https://www.youtube.com/shorts/o2lwv4vP5NY",
+    "duration_s": 39.97
   }
 ]
