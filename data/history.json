@@ -122,5 +122,30 @@
     "video_id": "3Y26__CZb8Q",
     "video_url": "https://www.youtube.com/shorts/3Y26__CZb8Q",
     "duration_s": 40.47
+  },
+  {
+    "channel": "90s_indian_nostalgia",
+    "run_id": "2026-10-17-38987530476",
+    "timestamp_utc": "2026-10-17T00:46:15.896580+00:00",
+    "timestamp_ist": "2026-10-17T06:16:15.896580+05:30",
+    "topic": "स्कूल का आखिरी दिन, रफ कॉपी के पन्नों की नाव और पहली बारिश में भीगने का भोलापन",
+    "topic_normalized": "स्कूल का आखिरी दिन रफ कॉपी के पन्नों की नाव और पहली बारिश में भीगने का भोलापन",
+    "title": "मिट्टी के दीये, सरसों का तेल और वो पावन दीपावली",
+    "title_normalized": "मिट्टी के दीये सरसों का तेल और वो पावन दीपावली",
+    "summary": "दीपावली आने से कई दिन पहले ही घर की छतों पर मिट्टी के दीयों को पानी की बाल्टी में भिगोकर धूप में सुखाने का नजारा बेहद खूबसूरत होता था। रूई…",
+    "narration_hash": "13b083d1de564958",
+    "script_sha256": "13b083d1de564958f52d016bed62611e381bee9bfd252729d68b1924e0001d43",
+    "scene_prompt_hashes": [
+      "12c97c0be0968dfc",
+      "917dac9cc47ca496",
+      "c20ab980bd893df0",
+      "81976db7b5cfac40",
+      "be99b33188dacd8a",
+      "abc2368e4d8cdf7e"
+    ],
+    "video_hash": "dc68a1f61fff610d",
+    "video_id": "0RBGhhCDVe8",
+    "video_url": "https://www.youtube.com/shorts/0RBGhhCDVe8",
+    "duration_s": 40.82
   }
 ]
