@@ -147,5 +147,30 @@
     "video_id": "0RBGhhCDVe8",
     "video_url": "https://www.youtube.com/shorts/0RBGhhCDVe8",
     "duration_s": 40.82
+  },
+  {
+    "channel": "90s_indian_nostalgia",
+    "run_id": "2026-10-18-39081785530",
+    "timestamp_utc": "2026-10-18T00:21:32.710053+00:00",
+    "timestamp_ist": "2026-10-18T05:51:32.710053+05:30",
+    "topic": "रविवार सुबह दूरदर्शन पर महाभारत का प्रसारण और पूरे मोहल्ले की एक छत पर जुटने की यादें",
+    "topic_normalized": "रविवार सुबह दूरदर्शन पर महाभारत का प्रसारण और पूरे मोहल्ले की एक छत पर जुटने की यादें",
+    "title": "बर्फ का गोला और बचपन की वो खट्टी-मीठी शामें",
+    "title_normalized": "बर्फ का गोला और बचपन की वो खट्टी मीठी शामें",
+    "summary": "तपती दोपहरी में जब मोहल्ले की गली में बर्फ के गोले वाले ठेले की घंटी बजती थी, तो नींद से भरी आंखें भी एक झटके में खुल जाती थीं। हाथ…",
+    "narration_hash": "cc6815512ba003bd",
+    "script_sha256": "cc6815512ba003bd469a2ba84291493c6204220cfc1b5cbf1ccbddd0870fb3e3",
+    "scene_prompt_hashes": [
+      "2146fcc3641312ef",
+      "487a4a7d9d186d64",
+      "e8f8fa2fed98a0bf",
+      "b5352fa4f48b587b",
+      "0038bfd69cac5b58",
+      "081809a9d5267b4e"
+    ],
+    "video_hash": "3c7972563fe05f6d",
+    "video_id": "dRVfezTjudI",
+    "video_url": "https://www.youtube.com/shorts/dRVfezTjudI",
+    "duration_s": 39.53
   }
 ]
