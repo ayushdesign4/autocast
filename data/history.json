@@ -172,5 +172,30 @@
     "video_id": "dRVfezTjudI",
     "video_url": "https://www.youtube.com/shorts/dRVfezTjudI",
     "duration_s": 39.53
+  },
+  {
+    "channel": "90s_indian_nostalgia",
+    "run_id": "2026-10-19-39180462387",
+    "timestamp_utc": "2026-10-19T00:25:54.859955+00:00",
+    "timestamp_ist": "2026-10-19T05:55:54.859955+05:30",
+    "topic": "कंचे (गोली) और गिल्ली-डंडा का मुकाबला और जेब में भरी खनखनाती कांच की गोलियां",
+    "topic_normalized": "कंचे गोली और गिल्ली डंडा का मुकाबला और जेब में भरी खनखनाती कांच की गोलियां",
+    "title": "डाकिया बाबू की साइकिल और नीले इनलैंड लेटर का वो दौर",
+    "title_normalized": "डाकिया बाबू की साइकिल और नीले इनलैंड लेटर का वो दौर",
+    "summary": "मोहल्ले की मोड़ पर जैसे ही डाकिया बाबू की साइकिल की घंटी ट्रिन-ट्रिन बजती थी, सबके दिल की धड़कनें तेज हो जाती थीं। वो हल्का नीला इनलैंड लेटर और सफेद…",
+    "narration_hash": "9f0889e0294afb80",
+    "script_sha256": "9f0889e0294afb802b2dbd4ffcfce2b40276dc42ddb9e787ebe2fc6252542726",
+    "scene_prompt_hashes": [
+      "1635a28cae8e7cd7",
+      "5c859e4b7005db74",
+      "83925e885b19b13a",
+      "78189e9df8dfa82a",
+      "f779dd6f00998b15",
+      "71c1341c8c9406c8"
+    ],
+    "video_hash": "dcdfa7e90acd6ace",
+    "video_id": "uPr29PXK-_s",
+    "video_url": "https://www.youtube.com/shorts/uPr29PXK-_s",
+    "duration_s": 38.43
   }
 ]
