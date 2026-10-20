@@ -197,5 +197,30 @@
     "video_id": "uPr29PXK-_s",
     "video_url": "https://www.youtube.com/shorts/uPr29PXK-_s",
     "duration_s": 38.43
+  },
+  {
+    "channel": "90s_indian_nostalgia",
+    "run_id": "2026-10-20-39351840606",
+    "timestamp_utc": "2026-10-20T01:16:35.565064+00:00",
+    "timestamp_ist": "2026-10-20T06:46:35.565064+05:30",
+    "topic": "छत पर टीवी एंटीना हिलाने और नीचे से 'आ गया... आ गया' चिल्लाने का वो भोला दौर",
+    "topic_normalized": "छत पर टीवी एंटीना हिलाने और नीचे से आ गया आ गया चिल्लाने का वो भोला दौर",
+    "title": "किराए का VCR और मोहल्ले का वीकेंड सिनेमा",
+    "title_normalized": "किराए का vcr और मोहल्ले का वीकेंड सिनेमा",
+    "summary": "1990 के दौर में शनिवार की शाम का इंतजार हर घर को बेसब्री से रहता था, जब वीडियो लाइब्रेरी से किराए पर वीसीआर और दो वीडियो कैसेट लाए जाते थे।…",
+    "narration_hash": "a925b66dbe44cce6",
+    "script_sha256": "a925b66dbe44cce6233a03b6c63433302fcbdf665db69384a8e73fd8419deb3a",
+    "scene_prompt_hashes": [
+      "42b7258ccf497b5d",
+      "68805fbc9b6fa2f5",
+      "8e15a54ce3173744",
+      "a656a7346039c93b",
+      "fabbeaf39661be28",
+      "cf996886e833817c"
+    ],
+    "video_hash": "55eea46681fae752",
+    "video_id": "gDm6g48iBAc",
+    "video_url": "https://www.youtube.com/shorts/gDm6g48iBAc",
+    "duration_s": 38.26
   }
 ]
