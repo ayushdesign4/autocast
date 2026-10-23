@@ -222,5 +222,30 @@
     "video_id": "gDm6g48iBAc",
     "video_url": "https://www.youtube.com/shorts/gDm6g48iBAc",
     "duration_s": 38.26
+  },
+  {
+    "channel": "90s_indian_nostalgia",
+    "run_id": "2026-10-23-39880418707",
+    "timestamp_utc": "2026-10-23T00:53:45.929579+00:00",
+    "timestamp_ist": "2026-10-23T06:23:45.929579+05:30",
+    "topic": "किराए पर वीसीआर (VCR) लाकर पूरी रात परिवार और पड़ोसियों के साथ फिल्में देखने का रोमांच",
+    "topic_normalized": "किराए पर वीसीआर vcr लाकर पूरी रात परिवार और पड़ोसियों के साथ फिल्में देखने का रोमांच",
+    "title": "36 फोटो वाला रील और स्टूडियो का वो अनमोल रोमांच",
+    "title_normalized": "36 फोटो वाला रील और स्टूडियो का वो अनमोल रोमांच",
+    "summary": "1990 के उस दौर में किसी शादी या जन्मदिन पर जब घर में कैमरे का वो काला डिब्बा खुलता था, तो सबकी सांसें थम जाती थीं। कोडक का वो 36…",
+    "narration_hash": "86c3206da178525a",
+    "script_sha256": "86c3206da178525ac2738974eec43798ea9c2b634f9adbff7f5ce4ef01cda265",
+    "scene_prompt_hashes": [
+      "3b7fd64864347d6b",
+      "d2cebe4ac99642ea",
+      "87d23c88b9d76097",
+      "7098f8edc3e2a488",
+      "7e7789e6e053a2b2",
+      "cf030ac1575c4eb0"
+    ],
+    "video_hash": "b9d413d1cc01e536",
+    "video_id": "I4uMz7uU-0E",
+    "video_url": "https://www.youtube.com/shorts/I4uMz7uU-0E",
+    "duration_s": 38.69
   }
 ]
