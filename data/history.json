@@ -247,5 +247,30 @@
     "video_id": "I4uMz7uU-0E",
     "video_url": "https://www.youtube.com/shorts/I4uMz7uU-0E",
     "duration_s": 38.69
+  },
+  {
+    "channel": "90s_indian_nostalgia",
+    "run_id": "2026-10-24-40047483629",
+    "timestamp_utc": "2026-10-24T01:01:12.969771+00:00",
+    "timestamp_ist": "2026-10-24T06:31:12.969771+05:30",
+    "topic": "एसटीडी पीसीओ (STD PCO) बूथ की लाल बत्ती और 1 मिनट के सिक्के वाले फोन कॉल की धड़कन",
+    "topic_normalized": "एसटीडी पीसीओ std pco बूथ की लाल बत्ती और 1 मिनट के सिक्के वाले फोन कॉल की धड़कन",
+    "title": "छत पर पानी का छिड़काव और तारों भरी रात की यादें",
+    "title_normalized": "छत पर पानी का छिड़काव और तारों भरी रात की यादें",
+    "summary": "गर्मियों की छुट्टियों में शाम ढलते ही छत पर पाइप से पानी का छिड़काव करने की वो सौंधी खुशबू आज भी याद आती है। लाल गर्म ईंटों से उठती भाप…",
+    "narration_hash": "6e9a8f4d304518d7",
+    "script_sha256": "6e9a8f4d304518d7bdd4a55ebc792dd760fa5ef0089eb471d7f05261fb5778b5",
+    "scene_prompt_hashes": [
+      "aa527b30cac55ffc",
+      "77b62e49a29c8549",
+      "15226082f780aeec",
+      "9092af04c2612eea",
+      "3a666061abb6e0fb",
+      "19c8b4ebac9c5312"
+    ],
+    "video_hash": "a4fbd091411465dd",
+    "video_id": "6JKgGNhrO5g",
+    "video_url": "https://www.youtube.com/shorts/6JKgGNhrO5g",
+    "duration_s": 45.33
   }
 ]
