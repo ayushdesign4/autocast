@@ -272,5 +272,30 @@
     "video_id": "6JKgGNhrO5g",
     "video_url": "https://www.youtube.com/shorts/6JKgGNhrO5g",
     "duration_s": 45.33
+  },
+  {
+    "channel": "90s_indian_nostalgia",
+    "run_id": "2026-10-25-40146742613",
+    "timestamp_utc": "2026-10-25T00:30:33.598757+00:00",
+    "timestamp_ist": "2026-10-25T06:00:33.598757+05:30",
+    "topic": "स्कूल के टिफिन में पराठे-आम का अचार और दोस्तों के साथ बेंच पर बैठकर बांटने की खुशी",
+    "topic_normalized": "स्कूल के टिफिन में पराठे आम का अचार और दोस्तों के साथ बेंच पर बैठकर बांटने की खुशी",
+    "title": "टिफिन में पराठे और आम का अचार, वो बचपन की खुशी",
+    "title_normalized": "टिफिन में पराठे और आम का अचार वो बचपन की खुशी",
+    "summary": "दोपहर बाद स्कूल से लौटते ही पिताजी टिफिन बॉक्स उठा लाते, उसमें पराठे और आम का अचार रखा होता जो उन्होंने घर की दराज़ से निकाला था। हम तीन-चार दोस्त…",
+    "narration_hash": "a3e48c41db8fab14",
+    "script_sha256": "a3e48c41db8fab143a9f6e728bc76061e4d0bec509ff609d5e2538434f79c4f5",
+    "scene_prompt_hashes": [
+      "41d7b910879ceab5",
+      "36daaaac87b9b75e",
+      "7aa95ea5efb3b9d4",
+      "497cbccbdb4197a3",
+      "680785f5dbe920b5",
+      "be7a6e6f5ab8afce"
+    ],
+    "video_hash": "d5ed0c8335f231a8",
+    "video_id": "Y-44GN4PVYY",
+    "video_url": "https://www.youtube.com/shorts/Y-44GN4PVYY",
+    "duration_s": 44.57
   }
 ]
