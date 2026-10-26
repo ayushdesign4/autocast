@@ -297,5 +297,30 @@
     "video_id": "Y-44GN4PVYY",
     "video_url": "https://www.youtube.com/shorts/Y-44GN4PVYY",
     "duration_s": 44.57
+  },
+  {
+    "channel": "90s_indian_nostalgia",
+    "run_id": "2026-10-26-40250036523",
+    "timestamp_utc": "2026-10-26T00:38:42.059212+00:00",
+    "timestamp_ist": "2026-10-26T06:08:42.059212+05:30",
+    "topic": "कैसेट की रील में पेंसिल घुमाकर रिपेयर करने और रविवार को बिनाका गीतमाला सुनने का नशा",
+    "topic_normalized": "कैसेट की रील में पेंसिल घुमाकर रिपेयर करने और रविवार को बिनाका गीतमाला सुनने का नशा",
+    "title": "रील घुमाने की वो शरारत और बिनाका गीतमाला का नशा",
+    "title_normalized": "रील घुमाने की वो शरारत और बिनाका गीतमाला का नशा",
+    "summary": "घर के छोटे से कमरे में अम्मी ने एक कैसेट रील रख दी थी, जिसकी प्लेयर में पेंसिल घुमा-घुमाकर उसकी गंध आती थी - इतनी खुशबू कि मुंह में पानी…",
+    "narration_hash": "3ca9accc90648d2b",
+    "script_sha256": "3ca9accc90648d2b898890a950130d2e9efac05d4fa0e4f5382c517dd8f613c2",
+    "scene_prompt_hashes": [
+      "445eb1835846e5ae",
+      "f5934050b5652a83",
+      "964608651e3d01ef",
+      "682d1d2f87ab7c94",
+      "4958016b6aca5949",
+      "df6e5f364a77600a"
+    ],
+    "video_hash": "fba15ff4803dff00",
+    "video_id": "Zob5tzoKa1Y",
+    "video_url": "https://www.youtube.com/shorts/Zob5tzoKa1Y",
+    "duration_s": 37.9
   }
 ]
