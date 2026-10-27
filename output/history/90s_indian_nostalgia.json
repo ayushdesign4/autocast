@@ -322,5 +322,30 @@
     "video_id": "Zob5tzoKa1Y",
     "video_url": "https://www.youtube.com/shorts/Zob5tzoKa1Y",
     "duration_s": 37.9
+  },
+  {
+    "channel": "90s_indian_nostalgia",
+    "run_id": "2026-10-27-40433394640",
+    "timestamp_utc": "2026-10-27T01:39:01.810942+00:00",
+    "timestamp_ist": "2026-10-27T07:09:01.810942+05:30",
+    "topic": "डाकिए की साइकिल की घंटी और नानी के नीले अंतर्देशीय पत्र (Inland Letter) का बेसब्री से इंतजार",
+    "topic_normalized": "डाकिए की साइकिल की घंटी और नानी के नीले अंतर्देशीय पत्र inland letter का बेसब्री से इंतजार",
+    "title": "गर्मियों की रेल यात्रा और लोहे की खिड़की वाली वो सीट",
+    "title_normalized": "गर्मियों की रेल यात्रा और लोहे की खिड़की वाली वो सीट",
+    "summary": "गर्मियों की छुट्टियों में नानी के घर जाने वाली रेलगाड़ी का सफर याद आते ही आज भी दिल खुशियों से झूम उठता है। लोहे की भारी नीली खिड़की के पास…",
+    "narration_hash": "18311d39aa0e90e9",
+    "script_sha256": "18311d39aa0e90e9971da9056b7638c8c1620b59ff89db7b288dd7d9df35ea1c",
+    "scene_prompt_hashes": [
+      "ed646d1cbe3eb6b5",
+      "425d1da122f447aa",
+      "b7027c0b3bcaf52c",
+      "ab144633a61940dc",
+      "19ab0645a4a24a01",
+      "7137cca69283fddb"
+    ],
+    "video_hash": "8a9450f417a4501b",
+    "video_id": "lBsjzeP-qEg",
+    "video_url": "https://www.youtube.com/shorts/lBsjzeP-qEg",
+    "duration_s": 39.37
   }
 ]
